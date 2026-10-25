@@ -49,6 +49,14 @@
 
 有搜索框，输「说明」或「HOW」就能直接定位。改完保存即可。
 
+**关于行内代码**：有些文案里带等宽小方块（比如 `cron`、`steam.json`），在编辑器里用**反引号**包起来就行：
+
+```
+GitHub Actions 按 `cron` 定时跑 `scripts/fetch-steam.js`。
+```
+
+保存后页面会自动渲染成 `<code>` 样式。反引号本身不会显示。
+
 ### 浏览器不支持怎么办
 
 Firefox / Safari 不支持目录授权。这时点 **导出 JSON** 下载 `data.js`，手动替换 `assets/js/data.js` 即可。

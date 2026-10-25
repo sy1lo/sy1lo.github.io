@@ -1222,12 +1222,21 @@
       const val = ui[key];
       if (typeof val !== "string" || val === "") return;
 
-      /* 只替换纯文本节点，避免破坏内部结构（如 <b id> 占位） */
-      const hasChildEl = node.children.length > 0;
-      if (hasChildEl) {
-        /* 有子元素时不覆盖，防止把动态 id 内容冲掉 */
+      /* 节点里有 <code> 这类行内标签：用反引号语法重建内容，
+         既保留行内代码样式，又能让文案可编辑 */
+      if (node.children.length > 0) {
+        /* 只处理「纯行内代码」的情况；含 <b id> 等动态占位的一律跳过 */
+        const onlyCode = [...node.children].every((c) => c.tagName === "CODE");
+        if (!onlyCode) return;
+
+        const html = esc(val).replace(/`([^`]+)`/g, "<code>$1</code>");
+        if (node.innerHTML !== html) {
+          node.innerHTML = html;
+          applied++;
+        }
         return;
       }
+
       if (node.textContent !== val) {
         node.textContent = val;
         applied++;
