@@ -352,9 +352,37 @@
     );
   }
 
+  /* File System Access API 只接受单级名字，路径必须逐级进入 */
+  async function getFileByPath(root, relPath, opts = {}) {
+    const parts = relPath.split("/").filter(Boolean);
+    let dir = root;
+    for (let i = 0; i < parts.length - 1; i++) {
+      dir = await dir.getDirectoryHandle(parts[i], { create: !!opts.createDir });
+    }
+    return dir.getFileHandle(parts[parts.length - 1], { create: !!opts.create });
+  }
+
+  async function getDirByPath(root, relPath, opts = {}) {
+    const parts = relPath.split("/").filter(Boolean);
+    let dir = root;
+    for (const p of parts) {
+      dir = await dir.getDirectoryHandle(p, { create: !!opts.create });
+    }
+    return dir;
+  }
+
   async function loadFromDir(handle) {
     dirHandle = handle;
-    const fh = await handle.getFileHandle(DATA_PATH, { create: false });
+    let fh;
+    try {
+      fh = await getFileByPath(handle, DATA_PATH);
+    } catch (e) {
+      /* 常见原因：选错了文件夹（选的不是仓库根目录） */
+      throw new Error(
+        `在「${handle.name}」里找不到 ${DATA_PATH}。` +
+        `请重新选择包含 index.html 的那个文件夹（当前选的是「${handle.name}」）。`
+      );
+    }
     fileHandle = fh;
     const file = await fh.getFile();
     const text = await file.text();
@@ -793,8 +821,7 @@
       let finalName = name;
       if (dirHandle) {
         try {
-          const photoDir = await dirHandle.getDirectoryHandle("assets")
-            .then((d) => d.getDirectoryHandle("photos"));
+          const photoDir = await getDirByPath(dirHandle, "assets/photos", { create: true });
           const dest = await photoDir.getFileHandle(name, { create: true });
           const w2 = await dest.createWritable();
           await w2.write(file);
@@ -916,8 +943,7 @@
 
       if (dirHandle) {
         try {
-          const audioDir = await dirHandle.getDirectoryHandle("assets")
-            .then((d) => d.getDirectoryHandle("audio"));
+          const audioDir = await getDirByPath(dirHandle, "assets/audio", { create: true });
           const dest = await audioDir.getFileHandle(name, { create: true });
           const w = await dest.createWritable();
           await w.write(file);
