@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sy1lo — 个人主页</title>
+<meta name="description" content="sy1lo 的个人主页：项目、相册、Steam 动态、友链与联系方式。一台能放歌的复古磁带机。">
+<meta name="theme-color" content="#efece1">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="sy1lo — 个人主页">
+<meta property="og:description" content="前端工程师 / 像素爱好者。项目、相册、Steam 动态、友链与联系方式。">
+<meta property="og:image" content="assets/preview.png">
+<meta property="og:url" content="https://sy1lo.github.io/">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/fusion-pixel-12px.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/silkscreen-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+<a class="skip" href="#main">跳到主内容</a>
+<div class="scanlines" aria-hidden="true"></div>
+
+<div class="desktop">
+  <div class="window" id="window">
+
+    <!-- ================= 标题栏 ================= -->
+    <header class="titlebar">
+      <div class="wincontrols" aria-hidden="true">
+        <span class="wincontrols__btn"><svg viewBox="0 0 10 10"><path d="M2.4 2.4l5.2 5.2M7.6 2.4L2.4 7.6"/></svg></span>
+        <span class="wincontrols__btn"><svg viewBox="0 0 10 10"><path d="M2 7.5h6"/></svg></span>
+        <span class="wincontrols__btn"><svg viewBox="0 0 10 10"><rect x="2.5" y="2.5" width="5" height="5"/></svg></span>
+      </div>
+
+      <h1 class="titlebar__title" id="winTitle">sy1lo — 首页</h1>
+
+      <div class="titlebar__meta">
+        <button class="theme-toggle" type="button" id="themeToggle" aria-pressed="false" title="切换明暗">LIGHT</button>
+        <span class="badge-online"><i aria-hidden="true"></i><span id="statusBadge">开放合作</span></span>
+        <span class="titlebar__ver" id="version">v2026.10</span>
+      </div>
+    </header>
+
+    <!-- ================= 页签 ================= -->
+    <nav class="tabbar" role="tablist" aria-label="站点导航" id="tabbar">
+      <span class="tabbar__ink" id="tabInk" aria-hidden="true"></span>
+      <button class="tab is-active" type="button" role="tab" aria-selected="true" aria-controls="page-home" id="tab-home" data-page="home" data-title="首页">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 7.2L8 2.5l5.5 4.7V14H9.8v-4H6.2v4H2.5z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span>首页</span>
+      </button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="page-works" id="tab-works" data-page="works" data-title="项目">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 5.6h4.3l1.2 1.6H14v6.3H2z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 5.6V3.4h3.9l1.2 2.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span>项目</span>
+      </button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="page-gallery" id="tab-gallery" data-page="gallery" data-title="相册">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.8" y="3" width="12.4" height="10" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5.6" cy="6.4" r="1.3" fill="currentColor"/><path d="M2.2 11.4l3.2-3 2.4 2.1 2.2-2.4 3.8 3.3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>相册</span>
+      </button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="page-feed" id="tab-feed" data-page="feed" data-title="动态">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.8 8.6h3l2-4.4 2.4 8 1.8-3.6h3.2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span>动态</span>
+      </button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="page-friends" id="tab-friends" data-page="friends" data-title="友链">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="5.6" cy="6" r="2.3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="10.9" cy="6.7" r="1.9" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M1.6 13.2c0-2.2 1.8-3.4 4-3.4s4 1.2 4 3.4M9.5 13.2c0-1.7.9-2.6 2.4-2.6 1.4 0 2.5 1 2.5 2.6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>友链</span>
+      </button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="page-contact" id="tab-contact" data-page="contact" data-title="联系">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.8" y="3.6" width="12.4" height="8.8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.3 4.2L8 8.6l5.7-4.4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span>联系</span>
+      </button>
+    </nav>
+
+    <!-- ================= 工作区 ================= -->
+    <main class="workspace" id="main">
+
+      <!-- ========================================================
+           首页
+           ======================================================== -->
+      <section class="page is-active" id="page-home" data-page="home" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
+        <div class="col col--main">
+
+          <article class="panel">
+            <div class="panel__head">
+              <h2>NOW PLAYING / 正在放</h2>
+              <span class="panel__hint">DECK 01 · 真·音频</span>
+            </div>
+            <div class="panel__body">
+              <div class="stage">
+                <span class="stage__sticker">OPEN TO WORK</span>
+                <span class="stage__side">SIDE A — LOCAL</span>
+
+                <div class="cassette" id="cassette" aria-hidden="true">
+                  <div class="cassette__label">
+                    <div class="cassette__stripe"></div>
+                    <div class="cassette__labeltext">
+                      <div class="cassette__brand">SY1LO <span>MIX TAPE · C-60</span></div>
+                      <div class="cassette__title" id="cassetteTitle">Luv (sic) pt4</div>
+                      <div class="cassette__sub" id="cassetteSub">NUJABES &amp; SHING02</div>
+                    </div>
+                    <div class="cassette__labelrow">
+                      <span id="cassetteSide">SIDE A</span><span>STEREO</span><span>NO TRACKING</span>
+                    </div>
+                  </div>
+
+                  <div class="cassette__window">
+                    <div class="cassette__tape"></div>
+                    <div class="reel reel--l"><span></span></div>
+                    <div class="reel reel--r"><span></span></div>
+                    <div class="cassette__bridge"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-head">
+                <h2 class="hero-title" id="npTitle">Luv (sic) pt4</h2>
+                <span class="chip" id="npTag">2005</span>
+              </div>
+              <p class="hero-sub" id="npArtist">Nujabes &amp; Shing02</p>
+
+              <div class="wave" id="wave" role="slider" tabindex="0" aria-label="播放进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="wave__bars" id="waveBars"></div>
+                <div class="wave__bars wave__bars--fill" id="waveFill"></div>
+                <div class="wave__playhead" id="waveHead"></div>
+              </div>
+              <div class="wave__times">
+                <span id="timeNow">00:00</span>
+                <span id="timeTotal">05:12</span>
+              </div>
+
+              <div class="transport">
+                <button class="tbtn" type="button" id="btnShuffle" title="随机" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l9 10h5M3 17h4l9-10h5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17 4l4 3-4 3M17 14l4 3-4 3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                  <span class="sr">随机</span>
+                </button>
+                <button class="tbtn" type="button" id="btnPrev" title="上一首">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14L8 12zM6 5v14" fill="currentColor"/></svg>
+                  <span class="sr">上一首</span>
+                </button>
+                <button class="tbtn tbtn--play" type="button" id="btnPlay" title="播放 / 暂停" aria-pressed="false">
+                  <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4l12 8-12 8z" fill="currentColor"/></svg>
+                  <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h4v16H7zM14 4h4v16h-4z" fill="currentColor"/></svg>
+                  <span class="sr">播放</span>
+                </button>
+                <button class="tbtn" type="button" id="btnNext" title="下一首">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14l10-7zM18 5v14" fill="currentColor"/></svg>
+                  <span class="sr">下一首</span>
+                </button>
+                <button class="tbtn" type="button" id="btnLoop" title="单曲循环" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10V7h13M20 14v3H7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 4l3 3-3 3M10 20l-3-3 3-3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                  <span class="sr">循环</span>
+                </button>
+              </div>
+
+              <div class="modebar">
+                <span class="chip chip--static" id="modeChip">顺序</span>
+                <label class="vol">
+                  <span class="vol__label">VOL</span>
+                  <input class="vol__range" type="range" id="vol" min="0" max="100" value="72" aria-label="音量">
+                  <span class="vol__value" id="volValue">/ 72</span>
+                </label>
+                <button class="chip chip--btn" type="button" id="btnStop">STOP</button>
+              </div>
+
+              <section class="timeline-wrap">
+                <div class="timeline__head">
+                  <h3>LINER NOTES / 关于这首歌</h3>
+                  <span>随手写的</span>
+                </div>
+                <ol class="timeline" id="trackNotes"></ol>
+              </section>
+
+              <audio id="audio" preload="metadata"></audio>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel__head">
+              <h2>PROFILE / 关于我</h2>
+              <span class="panel__hint">README.md</span>
+            </div>
+            <div class="panel__body">
+              <div class="idcard">
+                <div class="idcard__top">
+                  <span class="idcard__brand">PERSONAL ID <b>/ 名片</b></span>
+                  <span class="idcard__serial" id="idNo">NO. 2026-10</span>
+                </div>
+                <div class="idcard__main">
+                  <div class="idcard__photo" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" shape-rendering="crispEdges">
+                      <rect width="48" height="48" fill="#1b3fd6"/>
+                      <g fill="#e9ff2f">
+                        <rect x="4" y="4" width="4" height="4"/><rect x="40" y="4" width="4" height="4"/>
+                        <rect x="4" y="40" width="4" height="4"/><rect x="40" y="40" width="4" height="4"/>
+                      </g>
+                      <g fill="#f6f4ea">
+                        <rect x="14" y="10" width="20" height="3"/>
+                        <rect x="10" y="13" width="3" height="11"/><rect x="35" y="13" width="3" height="11"/>
+                        <rect x="14" y="24" width="20" height="13"/>
+                        <rect x="8" y="31" width="6" height="10"/><rect x="34" y="31" width="6" height="10"/>
+                      </g>
+                      <g fill="#17171a">
+                        <rect x="17" y="16" width="4" height="4"/><rect x="27" y="16" width="4" height="4"/>
+                        <rect x="20" y="30" width="8" height="3"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="idcard__info">
+                    <div class="idcard__name" id="idName">sy1lo</div>
+                    <div class="idcard__role" id="idRole">前端工程师 / 像素爱好者</div>
+                    <dl class="idcard__rows">
+                      <div><dt>BASE</dt><dd id="idBase">China</dd></div>
+                      <div><dt>SINCE</dt><dd id="idSince">2019</dd></div>
+                      <div><dt>MAIL</dt><dd id="idMail">2135619868@qq.com</dd></div>
+                    </dl>
+                  </div>
+                </div>
+                <div class="idcard__foot">
+                  <div class="barcode" aria-hidden="true"></div>
+                  <span class="idcard__status"><i aria-hidden="true"></i><span id="idStatus">开放合作</span></span>
+                </div>
+              </div>
+
+              <p class="lede" id="heroLede">把一个个人主页做成一台老式软件，能点的地方都真的能点。</p>
+              <div class="prose" id="aboutText"></div>
+              <div class="facts" id="aboutFacts"></div>
+              <div class="actions">
+                <a class="btn btn--primary" id="mailBtn" href="mailto:2135619868@qq.com">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.8" y="3.6" width="12.4" height="8.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2.3 4.2L8 8.6l5.7-4.4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                  给我发邮件
+                </a>
+                <button class="btn" type="button" id="copyMailHome">复制邮箱</button>
+                <button class="btn" type="button" id="copyQqHome">复制 QQ</button>
+                <a class="btn" id="ghBtn" href="https://github.com/sy1lo" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                <a class="btn" id="giteeBtn" href="https://gitee.com/lsy1105" target="_blank" rel="noopener noreferrer">Gitee ↗</a>
+              </div>
+              <p class="prose prose--small prose--muted">邮箱：<b id="mailTplHint">2135619868@qq.com</b> · QQ：<b id="qqHint">2135619868</b> · 通常 48 小时内回。</p>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel__head">
+              <h2>NOW / 近况</h2>
+              <span class="panel__hint" id="nowUpdated">更新于 —</span>
+            </div>
+            <div class="panel__body panel__body--tight">
+              <ul class="nowlist" id="nowList"></ul>
+            </div>
+          </article>
+        </div>
+
+        <div class="col col--side">
+          <section class="panel">
+            <div class="panel__head">
+              <h2>TAPE SHELF / 磁带架</h2>
+              <span class="panel__hint" id="shelfCount">6 TRACKS</span>
+            </div>
+            <div class="panel__body panel__body--tight">
+              <div class="shelf" id="shelf" role="listbox" aria-label="磁带架：我的歌单"></div>
+            </div>
+          </section>
+
+          <section class="panel panel--eq">
+            <div class="panel__head">
+              <h2><i class="eqdot" aria-hidden="true"></i>EQUALIZER</h2>
+              <span class="panel__hint">REACTIVE</span>
+            </div>
+            <div class="panel__body panel__body--tight">
+              <div class="eq" id="eq" aria-hidden="true"></div>
+              <div class="eq__scale"><span>60Hz</span><span>250</span><span>1k</span><span>4k</span><span>16kHz</span></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>TRACK INFO / 曲目信息</h2>
+              <span class="panel__hint" id="infoSource">LOCAL FILE</span>
+            </div>
+            <div class="panel__body">
+              <dl class="info">
+                <div class="info__row"><dt>曲名</dt><dd id="infoTrack">—</dd></div>
+                <div class="info__row"><dt>艺人</dt><dd id="infoArtist">—</dd></div>
+                <div class="info__row"><dt>专辑</dt><dd id="infoAlbum">—</dd></div>
+                <div class="info__row"><dt>年份</dt><dd id="infoYear">—</dd></div>
+              </dl>
+              <div class="info__foot">
+                <button class="chip chip--btn" type="button" id="btnSettings" aria-expanded="false" aria-controls="infoExtra">+ 更多信息</button>
+                <span class="info__status" id="playStatus">STOPPED</span>
+              </div>
+              <div class="info__extra" id="infoExtra" hidden>
+                <div class="info__row"><dt>编码</dt><dd id="infoQuality">—</dd></div>
+                <div class="info__row"><dt>文件</dt><dd id="infoFile">—</dd></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>WORKS / 项目</h2>
+              <button class="panel__more" type="button" data-goto="works" id="pinnedMore">全部 →</button>
+            </div>
+            <div class="panel__body panel__body--tight">
+              <div class="pinned" id="pinnedList"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>GALLERY / 相册</h2>
+              <button class="panel__more" type="button" data-goto="gallery">全部 →</button>
+            </div>
+            <div class="panel__body panel__body--tight">
+              <div class="thumbs" id="galleryMini"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>STEAM / 最近</h2>
+              <button class="panel__more" type="button" data-goto="feed">全部 →</button>
+            </div>
+            <div class="panel__body panel__body--tight">
+              <div class="steam-mini" id="steamMini"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>FRIENDS / 友链</h2>
+              <button class="panel__more" type="button" data-goto="friends">全部 →</button>
+            </div>
+            <div class="panel__body panel__body--tight">
+              <div class="friends-mini" id="friendsMini"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>LOCAL / 此刻</h2>
+              <span class="panel__hint">GMT+8</span>
+            </div>
+            <div class="panel__body">
+              <div class="clock" id="clock">--:--:--</div>
+              <div class="clock__date" id="clockDate">—</div>
+              <dl class="kv" id="quickStats"></dl>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           项目
+           ======================================================== -->
+      <section class="page" id="page-works" data-page="works" role="tabpanel" aria-labelledby="tab-works" tabindex="0" hidden>
+        <div class="col col--main">
+          <article class="panel">
+            <div class="panel__head">
+              <h2>WORKS / 项目</h2>
+              <span class="panel__hint" id="workCount">2 ITEMS</span>
+            </div>
+            <div class="panel__body">
+              <p class="filters__hint">只有真实仓库。GitHub 和 Gitee 上都算，点「源码」直接过去。</p>
+              <div class="works" id="workList"></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col col--side">
+          <section class="panel">
+            <div class="panel__head">
+              <h2>BY YEAR / 归档</h2>
+              <span class="panel__hint">ALL TIME</span>
+            </div>
+            <div class="panel__body panel__body--tight">
+              <ul class="yearlist" id="yearList"></ul>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>STATUS / 图例</h2>
+              <span class="panel__hint">LEGEND</span>
+            </div>
+            <div class="panel__body">
+              <ul class="legend">
+                <li><i class="dot dot--live"></i><b>维护中</b><span>还在更新，欢迎提 issue</span></li>
+                <li><i class="dot dot--wip"></i><b>开发中</b><span>能用，但随时会改</span></li>
+                <li><i class="dot dot--arch"></i><b>已归档</b><span>不再更新，代码留着</span></li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>CODE / 代码仓库</h2>
+              <span class="panel__hint">2 SITES</span>
+            </div>
+            <div class="panel__body">
+              <ul class="legend">
+                <li><b>GitHub</b><span>github.com/sy1lo</span></li>
+                <li><b>Gitee</b><span>gitee.com/lsy1105</span></li>
+              </ul>
+              <div class="actions actions--tight">
+                <a class="btn" href="https://github.com/sy1lo" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                <a class="btn" href="https://gitee.com/lsy1105" target="_blank" rel="noopener noreferrer">Gitee ↗</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           相册
+           ======================================================== -->
+      <section class="page" id="page-gallery" data-page="gallery" role="tabpanel" aria-labelledby="tab-gallery" tabindex="0" hidden>
+        <div class="col col--main">
+          <article class="panel">
+            <div class="panel__head">
+              <h2>GALLERY / 相册</h2>
+              <span class="panel__hint" id="photoCount">8 PHOTOS</span>
+            </div>
+            <div class="panel__body">
+              <div class="notebar">
+                <div class="tags" id="photoTags" role="group" aria-label="按类型筛选"></div>
+                <span class="notebar__hint">点图片放大</span>
+              </div>
+              <div class="justified" id="photoWall"></div>
+              <div class="wall__empty" id="photoEmpty" hidden>这个分类下暂时没有图片。</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col col--side">
+          <section class="panel">
+            <div class="panel__head">
+              <h2>ABOUT / 说明</h2>
+              <span class="panel__hint">300</span>
+            </div>
+            <div class="panel__body">
+              <p class="prose">这里放平时存的插画和截图。有些是喜欢的作品，有些是自己截的，来源都记在文件名和说明里。</p>
+              <p class="prose prose--muted">图片都压过，单张 130–370 KB，整册不到 2 MB。</p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>HOW IT WORKS</h2>
+              <span class="panel__hint">JUSTIFIED</span>
+            </div>
+            <div class="panel__body">
+              <ul class="tips">
+                <li>按行排布，每行等高，宽度按图片比例分配。</li>
+                <li>窗口变化会重新计算行，不会出现尴尬的空洞。</li>
+                <li>图片带真实宽高，加载时不抖动。</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           动态（Steam）
+           ======================================================== -->
+      <section class="page" id="page-feed" data-page="feed" role="tabpanel" aria-labelledby="tab-feed" tabindex="0" hidden>
+        <div class="col col--main">
+          <article class="panel">
+            <div class="panel__head">
+              <h2>STEAM / 最近在玩</h2>
+              <span class="panel__hint" id="steamUpdated">—</span>
+            </div>
+            <div class="panel__body">
+              <div class="steam-hero" id="steamHero">
+                <div class="steam-hero__avatar" id="steamAvatar" aria-hidden="true"></div>
+                <div class="steam-hero__info">
+                  <div class="steam-hero__name" id="steamName">—</div>
+                  <div class="steam-hero__state" id="steamState">数据加载中…</div>
+                </div>
+                <a class="chip chip--btn" id="steamProfile" href="#" target="_blank" rel="noopener noreferrer">查看主页 ↗</a>
+              </div>
+
+              <dl class="steam-stats" id="steamStats"></dl>
+
+              <div class="subhead">
+                <h2>RECENT / 最近两周</h2>
+                <span class="panel__hint" id="recentCount">0 GAMES</span>
+              </div>
+              <div class="steam-recent" id="steamRecent"></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col col--side">
+          <section class="panel">
+            <div class="panel__head">
+              <h2>MOST PLAYED / 时长榜</h2>
+              <span class="panel__hint">ALL TIME</span>
+            </div>
+            <div class="panel__body panel__body--tight">
+              <div class="steam-top" id="steamTop"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>HOW / 数据怎么来的</h2>
+              <span class="panel__hint">JSON + 前端渲染</span>
+            </div>
+            <div class="panel__body">
+              <ol class="tips">
+                <li>GitHub Actions 按 <code>cron</code> 定时跑 <code>scripts/fetch-steam.js</code>。</li>
+                <li>脚本调 Steam Web API，把结果写成 <code>steam.json</code> 并提交回仓库。</li>
+                <li>这个页面 <code>fetch</code> 同源的 <code>steam.json</code>，自己决定怎么画。</li>
+                <li>API key 只存在仓库 Secrets 里，前端永远看不到。</li>
+              </ol>
+              <p class="prose prose--small prose--muted" id="steamHint">更新频率：每天两次。</p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           友链
+           ======================================================== -->
+      <section class="page" id="page-friends" data-page="friends" role="tabpanel" aria-labelledby="tab-friends" tabindex="0" hidden>
+        <div class="col col--main">
+          <article class="panel">
+            <div class="panel__head">
+              <h2>FRIENDS / 友情链接</h2>
+              <span class="panel__hint" id="friendCount">1 SITE</span>
+            </div>
+            <div class="panel__body">
+              <p class="prose prose--muted">这些人的博客我基本每期都看。顺序不分先后，链接都能打开。</p>
+              <div class="friend-grid" id="friendList"></div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel__head">
+              <h2>APPLY / 申请友链</h2>
+              <span class="panel__hint">OPEN</span>
+            </div>
+            <div class="panel__body">
+              <p class="prose">欢迎交换链接，先看看这几条，省得来回问：</p>
+              <ul class="tips">
+                <li>站点有自己的内容，不是纯转载或采集站。</li>
+                <li>半年内更新过，能正常访问（HTTPS 更好）。</li>
+                <li>先把我的链接挂上去，再来邮件告诉我。</li>
+                <li>只收个人站点；公司站、导流站、批量生成站不接。</li>
+              </ul>
+              <div class="actions actions--tight">
+                <a class="btn btn--primary" id="applyMail" href="mailto:2135619868@qq.com">发邮件申请</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col col--side">
+          <section class="panel">
+            <div class="panel__head">
+              <h2>MY CARD / 我的信息</h2>
+              <span class="panel__hint">COPY ME</span>
+            </div>
+            <div class="panel__body">
+              <p class="prose prose--small prose--muted">直接复制下面任意一段，比手打省事。</p>
+              <pre class="snippet" id="myCard">名称：sy1lo</pre>
+              <div class="actions actions--tight">
+                <button class="chip chip--btn" type="button" data-copy="myCard">复制纯文本</button>
+                <button class="chip chip--btn" type="button" id="copyMd">复制 Markdown</button>
+                <button class="chip chip--btn" type="button" id="copyHtml">复制 HTML</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>NOTE / 说明</h2>
+              <span class="panel__hint">HONEST</span>
+            </div>
+            <div class="panel__body">
+              <p class="prose">友链不是交换流量，是「这几个人写的东西我愿意推荐」。所以我会真的点进去看。</p>
+              <p class="prose prose--muted">如果哪天关站了，我会把链接挪到归档，不会装作没发生过。</p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           联系
+           ======================================================== -->
+      <section class="page" id="page-contact" data-page="contact" role="tabpanel" aria-labelledby="tab-contact" tabindex="0" hidden>
+        <div class="col col--main">
+          <article class="panel">
+            <div class="panel__head">
+              <h2>CONTACT / 联系</h2>
+              <span class="panel__hint">REPLY ≤ 48H</span>
+            </div>
+            <div class="panel__body">
+              <div class="mailcard">
+                <div class="mailcard__label">MAIL ME AT</div>
+                <a class="mailcard__addr" id="mailBig" href="mailto:2135619868@qq.com">2135619868@qq.com</a>
+                <div class="mailcard__actions">
+                  <button class="btn btn--primary" type="button" id="copyMailBig">复制邮箱</button>
+                  <a class="btn" id="mailTemplate" href="mailto:2135619868@qq.com">打开邮件客户端 ↗</a>
+                </div>
+                <div class="mailcard__alt">
+                  <span class="mailcard__alt-label">QQ</span>
+                  <code id="qqBig">2135619868</code>
+                  <button class="chip chip--btn" type="button" id="copyQqBig">复制 QQ</button>
+                </div>
+                <p class="prose prose--small prose--muted">邮件标题写清来意会快很多，比如「友链申请 / 你的站点名」。</p>
+              </div>
+
+              <div class="subhead">
+                <h2>ELSEWHERE / 我的主页</h2>
+                <span class="panel__hint" id="socialCount">5 LINKS</span>
+              </div>
+              <ul class="socials" id="socialList"></ul>
+            </div>
+          </article>
+        </div>
+
+        <div class="col col--side">
+          <section class="panel">
+            <div class="panel__head">
+              <h2>WHAT TO SAY / 可以聊</h2>
+              <span class="panel__hint">YES</span>
+            </div>
+            <div class="panel__body">
+              <ul class="tips">
+                <li>前端 / 界面 / 像素字体相关的问题，尽量答。</li>
+                <li>开源项目的小 bug、文档错误，直接发 issue 更快。</li>
+                <li>想用我的东西做个什么东西，说一声就行。</li>
+                <li>单纯想说「这个界面挺怪的」，也收。</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>WHAT NOT / 请别发</h2>
+              <span class="panel__hint">NO</span>
+            </div>
+            <div class="panel__body">
+              <ul class="tips tips--no">
+                <li>「帮我免费做个网站，很简单」。</li>
+                <li>SEO 外链、软文、课程推广、招聘群发。</li>
+                <li>要微信号再聊三天的商务流程。</li>
+              </ul>
+              <p class="prose prose--small prose--muted">不回不是没礼貌，是邮箱里这类太多了。</p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>TIME / 时区</h2>
+              <span class="panel__hint">GMT+8</span>
+            </div>
+            <div class="panel__body">
+              <div class="clock" id="clock2">--:--:--</div>
+              <div class="clock__date" id="clockDate2">—</div>
+              <dl class="kv" id="contactKv"></dl>
+            </div>
+          </section>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ================= 状态栏 ================= -->
+    <footer class="statusbar">
+      <span>SIDE A — LOCAL</span>
+      <span class="statusbar__mid" id="statusMid">手写 HTML / CSS / JS · 无追踪</span>
+      <span id="statusClock">--:--</span>
+    </footer>
+  </div>
+
+  <p class="colophon" id="colophon">© 2026 sy1lo · 手写代码 · 无追踪</p>
+</div>
+
+<!-- ================= 图片灯箱 ================= -->
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lightbox__backdrop" data-lb-close></div>
+  <figure class="lightbox__figure" role="dialog" aria-modal="true" aria-label="图片预览">
+    <img id="lbImg" alt="">
+    <figcaption class="lightbox__cap">
+      <span id="lbCap"></span>
+      <span class="lightbox__count" id="lbCount"></span>
+    </figcaption>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" id="lbPrev" aria-label="上一张">◀</button>
+    <button class="lightbox__nav lightbox__nav--next" type="button" id="lbNext" aria-label="下一张">▶</button>
+    <button class="lightbox__close" type="button" id="lbClose" aria-label="关闭">ESC</button>
+  </figure>
+</div>
+
+<noscript>
+  <p class="noscript">这个主页用 JavaScript 渲染列表和播放器。开启后再来看，或者直接发邮件给我。</p>
+</noscript>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

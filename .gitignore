@@ -1,0 +1,16 @@
+# 原始素材（不进部署）
+# 音频源文件约 116 MB、图片源文件约 23 MB
+# 部署用的是 assets/audio/（27 MB）和 assets/photos/（1.8 MB）
+music/
+pictures/
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# 临时
+.openchamber/
+.trash/
