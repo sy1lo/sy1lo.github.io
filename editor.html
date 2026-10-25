@@ -1,0 +1,1243 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>站点内容编辑器</title>
+<style>
+  :root {
+    --bg: #f5f3ec;
+    --paper: #fffdf7;
+    --ink: #1a1a1d;
+    --soft: #6b6a63;
+    --faint: #a8a59b;
+    --line: #d8d3c4;
+    --blue: #1b3fd6;
+    --green: #2f8f4e;
+    --red: #c0392b;
+    --yellow: #ffe94a;
+    --mono: "Consolas", "Menlo", monospace;
+    --sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ---------- 顶栏 ---------- */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px;
+    background: var(--paper);
+    border-bottom: 2px solid var(--ink);
+  }
+  header h1 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: .02em; }
+  header .file-state {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--soft);
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+  }
+  header .file-state.ok { color: var(--green); border-color: var(--green); }
+  header .file-state.dirty { color: #8a6d00; border-color: #d8b400; background: #fffbe6; }
+  header .spacer { flex: 1 1 auto; }
+
+  button {
+    font-family: inherit; font-size: 13px;
+    padding: 5px 12px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background .12s, border-color .12s;
+  }
+  button:hover { background: #f0ede2; border-color: var(--soft); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.primary {
+    background: var(--blue); color: #fff; border-color: var(--blue);
+  }
+  button.primary:hover { background: #16339f; }
+  button.primary:disabled { background: #9aa8e0; border-color: #9aa8e0; }
+
+  /* ---------- 布局 ---------- */
+  .shell { display: grid; grid-template-columns: 210px minmax(0, 1fr); min-height: calc(100vh - 53px); }
+
+  nav {
+    border-right: 1px solid var(--line);
+    background: var(--paper);
+    padding: 10px 0;
+    position: sticky; top: 53px;
+    align-self: start;
+    max-height: calc(100vh - 53px);
+    overflow: auto;
+  }
+  nav button {
+    display: block; width: 100%;
+    padding: 7px 16px;
+    border: 0; border-radius: 0;
+    background: none;
+    text-align: left;
+    font-size: 13.5px;
+    color: var(--soft);
+    border-left: 3px solid transparent;
+  }
+  nav button:hover { background: #f5f2e8; color: var(--ink); }
+  nav button.active {
+    color: var(--ink); font-weight: 600;
+    background: #eef0ff;
+    border-left-color: var(--blue);
+  }
+  nav .nav-count {
+    float: right; font-family: var(--mono); font-size: 11px; color: var(--faint);
+  }
+
+  main { padding: 18px 22px 60px; max-width: 940px; }
+
+  h2.sec {
+    font-size: 15px; margin: 0 0 4px;
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  h2.sec .hint { font-size: 11.5px; font-weight: 400; color: var(--faint); }
+  p.sec-desc { margin: 0 0 14px; font-size: 12.5px; color: var(--soft); }
+
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .card > .card-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 10px;
+    background: #f0ede2;
+    border-bottom: 1px solid var(--line);
+    font-size: 12.5px; font-weight: 600;
+  }
+  .card > .card-head .idx {
+    font-family: var(--mono); font-size: 11px; color: var(--faint);
+  }
+  .card > .card-head .grow { flex: 1 1 auto; }
+  .card-body { padding: 10px; display: flex; flex-direction: column; gap: 9px; }
+
+  .field { display: flex; flex-direction: column; gap: 3px; }
+  .field > label {
+    font-size: 11.5px; color: var(--soft);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .field > label .key { font-family: var(--mono); font-size: 10px; color: var(--faint); }
+  .field input[type=text],
+  .field input[type=number],
+  .field input[type=url],
+  .field textarea,
+  .field select {
+    width: 100%;
+    font-family: inherit; font-size: 13.5px;
+    padding: 5px 8px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+  }
+  .field textarea { resize: vertical; min-height: 62px; line-height: 1.55; }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: 2px solid #c3cdf7; border-color: var(--blue);
+  }
+  .field .hintline { font-size: 11px; color: var(--faint); }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; }
+
+  .listfield { display: flex; flex-direction: column; gap: 5px; }
+  .listfield .item { display: flex; gap: 5px; align-items: flex-start; }
+  .listfield .item textarea { flex: 1 1 auto; min-height: 40px; }
+  .listfield .item button {
+    flex: none; padding: 4px 7px; font-size: 12px; line-height: 1;
+    color: var(--red); border-color: #e4c4c0;
+  }
+  .listfield .item button:hover { background: #fdf0ee; }
+  .listfield > .add { align-self: flex-start; font-size: 12px; }
+
+  .thumb {
+    width: 92px; height: 62px; object-fit: cover;
+    border: 1px solid var(--line); border-radius: 3px;
+    background: #eee;
+  }
+  .photo-head { display: flex; gap: 10px; align-items: flex-start; }
+  .photo-head .meta { flex: 1 1 auto; min-width: 0; }
+
+  .empty {
+    padding: 26px; text-align: center;
+    color: var(--faint); font-size: 13px;
+    border: 1px dashed var(--line); border-radius: 4px;
+  }
+
+  /* ---------- 提示条 ---------- */
+  .banner {
+    margin: 0 0 14px;
+    padding: 9px 12px;
+    border: 1px solid #d8b400;
+    background: #fffbe6;
+    border-radius: 4px;
+    font-size: 12.5px;
+    line-height: 1.6;
+  }
+  .banner strong { display: block; margin-bottom: 2px; }
+  .banner code {
+    font-family: var(--mono); font-size: 11.5px;
+    background: #fff; padding: 1px 4px; border-radius: 2px;
+    border: 1px solid #e8dfa8;
+  }
+  .banner .actions { margin-top: 7px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* ---------- Toast ---------- */
+  #toast {
+    position: fixed; left: 50%; bottom: 26px;
+    transform: translate(-50%, 12px);
+    padding: 7px 16px;
+    background: var(--ink); color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .18s, transform .18s;
+    z-index: 99;
+  }
+  #toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 760px) {
+    .shell { grid-template-columns: 1fr; }
+    nav {
+      position: static; max-height: none;
+      border-right: 0; border-bottom: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; gap: 4px; padding: 8px;
+    }
+    nav button {
+      width: auto; border-left: 0; border-radius: 3px;
+      padding: 5px 10px; border: 1px solid var(--line);
+    }
+    nav button.active { border-color: var(--blue); }
+    nav .nav-count { float: none; margin-left: 4px; }
+    main { padding: 14px 12px 50px; }
+    .row2, .row3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>站点内容编辑器</h1>
+  <span class="file-state" id="fileState">未连接文件</span>
+  <span class="spacer"></span>
+  <button id="btnOpen">选择网站目录</button>
+  <button id="btnExport">导出 JSON</button>
+  <button class="primary" id="btnSave" disabled>保存到 data.js</button>
+</header>
+
+<div class="shell">
+  <nav id="nav"></nav>
+  <main id="main">
+    <div class="banner">
+      <strong>先做一步：选择网站目录</strong>
+      点右上角 <code>选择网站目录</code>，选中你本地的站点文件夹（就是包含 <code>index.html</code> 的那个）。
+      授权一次后，以后打开本页可以直接保存，不用再选。
+      <div class="actions">
+        <button id="btnOpen2">现在选择</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     数据模型
+     ============================================================ */
+  const DATA_PATH = "assets/js/data.js";
+  const PHOTOS_DIR = "assets/photos";
+  const AUDIO_DIR = "assets/audio";
+
+  let DATA = null;          // 解析出来的完整数据对象
+  let dirHandle = null;     // 目录句柄（File System Access API）
+  let fileHandle = null;    // data.js 句柄
+  let dirty = false;
+  let currentTab = "site";
+
+  const $ = (s) => document.querySelector(s);
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  };
+
+  /* ============================================================
+     Toast
+     ============================================================ */
+  let toastTimer = null;
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg;
+    t.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove("on"), 2200);
+  }
+
+  function markDirty() {
+    dirty = true;
+    const s = $("#fileState");
+    s.textContent = fileHandle ? "有未保存修改" : "未连接文件";
+    s.className = "file-state dirty";
+    $("#btnSave").disabled = !fileHandle;
+  }
+
+  function markClean() {
+    dirty = false;
+    const s = $("#fileState");
+    s.textContent = fileHandle ? fileHandle.name + " · 已保存" : "未连接文件";
+    s.className = "file-state ok";
+    $("#btnSave").disabled = !fileHandle;
+  }
+
+  /* ============================================================
+     读写 data.js
+     ============================================================ */
+  const START = "const DATA =";
+  const END = ";\n";
+
+  function parseDataFile(text) {
+    const i = text.indexOf(START);
+    if (i < 0) throw new Error("没找到 `const DATA =`，data.js 格式可能被改过了");
+    const body = text.slice(i + START.length);
+    /* 从末尾找最后一个 }; ，只取到 } 为止（不含分号） */
+    const j = body.lastIndexOf("};");
+    if (j < 0) throw new Error("没找到对象结束的 };");
+    const objSrc = body.slice(0, j + 1);
+    /* 用 Function 求值（本地可信文件，且编辑器只读自己仓库） */
+    const fn = new Function("return (" + objSrc + ");");
+    return fn();
+  }
+
+  function serializeDataFile(obj) {
+    return (
+      "/* ============================================================\n" +
+      "   站点内容 —— 只改这个文件，页面自动更新\n" +
+      "   ------------------------------------------------------------\n" +
+      "   建议用根目录的 editor.html 图形化编辑，不用手写。\n" +
+      "   site      你本人：名字、邮箱、QQ、社交账号、自我介绍、近况\n" +
+      "   tracks    磁带架上的歌（音频在 assets/audio/）\n" +
+      "   projects  项目\n" +
+      "   photos    相册（图片在 assets/photos/）\n" +
+      "   friends   友情链接\n" +
+      "   socials   别的入口\n" +
+      "   steam     Steam 动态配置\n" +
+      "   ui        界面文案（key 与 index.html 的 data-ui 对应）\n" +
+      "   ============================================================ */\n\n" +
+      "const DATA = " +
+      JSON.stringify(obj, null, 2) +
+      ";\n"
+    );
+  }
+
+  async function loadFromDir(handle) {
+    dirHandle = handle;
+    const fh = await handle.getFileHandle(DATA_PATH, { create: false });
+    fileHandle = fh;
+    const file = await fh.getFile();
+    const text = await file.text();
+    DATA = parseDataFile(text);
+    markClean();
+    render();
+    toast("已载入 " + DATA_PATH);
+  }
+
+  /* ============================================================
+     打开目录
+     ============================================================ */
+  async function pickDir() {
+    if (!window.showDirectoryPicker) {
+      toast("这个浏览器不支持目录授权，请用 Chrome 或 Edge");
+      return;
+    }
+    try {
+      const handle = await window.showDirectoryPicker({ mode: "readwrite" });
+      await loadFromDir(handle);
+      /* 记住句柄，刷新后可直接请求权限 */
+      await idbSet("dir", handle);
+    } catch (e) {
+      if (e.name !== "AbortError") toast("打开失败：" + e.message);
+    }
+  }
+
+  async function tryRestore() {
+    const handle = await idbGet("dir");
+    if (handle) {
+      try {
+        const perm = await handle.queryPermission({ mode: "readwrite" });
+        if (perm === "granted") {
+          await loadFromDir(handle);
+          return;
+        }
+        /* 需要重新授权，显示提示 */
+        const s = $("#fileState");
+        s.textContent = "上次的目录需要重新授权";
+        s.className = "file-state dirty";
+        $("#btnOpen").textContent = "重新授权目录";
+      } catch { /* 句柄失效 */ }
+    }
+    await tryFetchPreview();
+  }
+
+  /* 通过 http 打开时，可以只读预览（不写文件，保存按钮保持禁用）。
+     这样不选目录也能先看看各个标签页。 */
+  async function tryFetchPreview() {
+    if (!/^https?:$/.test(location.protocol)) return;
+    try {
+      const res = await fetch("../" + DATA_PATH, { cache: "no-store" });
+      if (!res.ok) return;
+      const text = await res.text();
+      DATA = parseDataFile(text);
+      const s = $("#fileState");
+      s.textContent = "只读预览（未连接文件）";
+      s.className = "file-state";
+      $("#btnSave").disabled = true;
+      render();
+      showPreviewBanner(true);
+    } catch { /* 忽略，保持空状态 */ }
+  }
+
+  /* 预览模式的提示条（放在 main 外面，避免被 render 清掉） */
+  function showPreviewBanner(on) {
+    let b = document.getElementById("previewBanner");
+    if (!on) { if (b) b.remove(); return; }
+    if (b) return;
+    b = document.createElement("div");
+    b.id = "previewBanner";
+    b.className = "banner";
+    b.style.cssText = "margin:0;border-radius:0;border-left:0;border-right:0;border-top:0";
+    b.innerHTML =
+      "<strong>当前是只读预览</strong>" +
+      "可以浏览和修改表单，但要点 <code>选择网站目录</code> 授权后才能写回 data.js。" +
+      "或者用 <code>导出 JSON</code> 手动替换文件。";
+    document.querySelector(".shell").before(b);
+  }
+
+  /* 极简 IndexedDB，用来存目录句柄 */
+  function idb() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open("site-editor", 1);
+      r.onupgradeneeded = () => r.result.createObjectStore("kv");
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    });
+  }
+  async function idbSet(k, v) {
+    const db = await idb();
+    return new Promise((res, rej) => {
+      const tx = db.transaction("kv", "readwrite");
+      tx.objectStore("kv").put(v, k);
+      tx.oncomplete = res;
+      tx.onerror = () => rej(tx.error);
+    });
+  }
+  async function idbGet(k) {
+    const db = await idb();
+    return new Promise((res) => {
+      const tx = db.transaction("kv", "readonly");
+      const rq = tx.objectStore("kv").get(k);
+      rq.onsuccess = () => res(rq.result);
+      rq.onerror = () => res(null);
+    });
+  }
+
+  /* ============================================================
+     保存
+     ============================================================ */
+  async function save() {
+    if (!fileHandle) { toast("请先选择网站目录"); return; }
+    try {
+      const text = serializeDataFile(DATA);
+      /* 先自检：能重新解析才算合法 */
+      parseDataFile(text);
+      const w = await fileHandle.createWritable();
+      await w.write(text);
+      await w.close();
+      markClean();
+      toast("已保存到 " + DATA_PATH + "，刷新网页即可看到");
+    } catch (e) {
+      toast("保存失败：" + e.message);
+    }
+  }
+
+  /* ============================================================
+     通用控件
+     ============================================================ */
+  function field(label, value, onChange, opts = {}) {
+    const wrap = el("div", "field");
+    const lb = el("label");
+    lb.appendChild(el("span", null, label));
+    if (opts.key) lb.appendChild(el("span", "key", opts.key));
+    wrap.appendChild(lb);
+
+    let input;
+    if (opts.type === "textarea") {
+      input = el("textarea");
+      input.value = value == null ? "" : String(value);
+      if (opts.rows) input.rows = opts.rows;
+    } else if (opts.type === "select") {
+      input = el("select");
+      (opts.options || []).forEach((o) => {
+        const op = el("option", null, o.label);
+        op.value = o.value;
+        if (String(value) === String(o.value)) op.selected = true;
+        input.appendChild(op);
+      });
+    } else {
+      input = el("input");
+      input.type = opts.type || "text";
+      input.value = value == null ? "" : String(value);
+      if (opts.placeholder) input.placeholder = opts.placeholder;
+    }
+
+    const handler = () => {
+      let v = input.value;
+      if (opts.type === "number") v = v === "" ? 0 : Number(v);
+      onChange(v);
+      markDirty();
+      if (opts.onInput) opts.onInput(v, wrap);
+    };
+    input.addEventListener(opts.live ? "input" : "change", handler);
+    if (opts.type !== "select") input.addEventListener("input", handler);
+
+    wrap.appendChild(input);
+    if (opts.hint) wrap.appendChild(el("div", "hintline", opts.hint));
+    return wrap;
+  }
+
+  /* 字符串数组编辑（列表） */
+  function listField(label, arr, onChange, opts = {}) {
+    const wrap = el("div", "field");
+    const lb = el("label");
+    lb.appendChild(el("span", null, label));
+    if (opts.key) lb.appendChild(el("span", "key", opts.key));
+    wrap.appendChild(lb);
+
+    const box = el("div", "listfield");
+    wrap.appendChild(box);
+
+    function rebuild() {
+      box.innerHTML = "";
+      arr.forEach((v, i) => {
+        const row = el("div", "item");
+        const ta = el("textarea");
+        ta.value = v;
+        ta.rows = 2;
+        ta.addEventListener("input", () => {
+          arr[i] = ta.value;
+          onChange(arr);
+          markDirty();
+        });
+        const del = el("button", null, "删");
+        del.type = "button";
+        del.title = "删除这一条";
+        del.addEventListener("click", () => {
+          arr.splice(i, 1);
+          onChange(arr);
+          markDirty();
+          rebuild();
+        });
+        row.appendChild(ta);
+        row.appendChild(del);
+        box.appendChild(row);
+      });
+      const add = el("button", "add", "+ 添加一条");
+      add.type = "button";
+      add.addEventListener("click", () => {
+        arr.push("");
+        onChange(arr);
+        markDirty();
+        rebuild();
+      });
+      box.appendChild(add);
+    }
+    rebuild();
+    return wrap;
+  }
+
+  function card(title, idx, bodyBuilder, opts = {}) {
+    const c = el("div", "card");
+    const head = el("div", "card-head");
+    if (idx != null) head.appendChild(el("span", "idx", String(idx).padStart(2, "0")));
+    head.appendChild(el("span", "grow", title));
+    if (opts.onDelete) {
+      const d = el("button", null, "删除");
+      d.type = "button";
+      d.style.cssText = "padding:3px 8px;font-size:12px;color:var(--red);border-color:#e4c4c0";
+      d.addEventListener("click", () => {
+        if (confirm("确定删除「" + title + "」？")) {
+          opts.onDelete();
+          markDirty();
+        }
+      });
+      head.appendChild(d);
+    }
+    c.appendChild(head);
+    const body = el("div", "card-body");
+    c.appendChild(body);
+    bodyBuilder(body);
+    return c;
+  }
+
+  /* ============================================================
+     各标签页渲染
+     ============================================================ */
+  const TABS = [
+    { id: "site", label: "基本信息" },
+    { id: "photos", label: "相册" },
+    { id: "tracks", label: "歌曲" },
+    { id: "projects", label: "项目" },
+    { id: "friends", label: "友链" },
+    { id: "socials", label: "入口" },
+    { id: "ui", label: "界面文案" }
+  ];
+
+  function renderNav() {
+    const nav = $("#nav");
+    nav.innerHTML = "";
+    TABS.forEach((t) => {
+      const b = el("button", t.id === currentTab ? "active" : "");
+      b.type = "button";
+      b.appendChild(el("span", null, t.label));
+
+      let n = 0;
+      if (DATA) {
+        if (t.id === "photos") n = DATA.photos.length;
+        else if (t.id === "tracks") n = DATA.tracks.length;
+        else if (t.id === "projects") n = DATA.projects.length;
+        else if (t.id === "friends") n = DATA.friends.length;
+        else if (t.id === "socials") n = DATA.socials.length;
+        else if (t.id === "ui") n = Object.keys(DATA.ui || {}).length;
+      }
+      if (n) b.appendChild(el("span", "nav-count", String(n)));
+
+      b.addEventListener("click", () => {
+        currentTab = t.id;
+        render();
+      });
+      nav.appendChild(b);
+    });
+  }
+
+  function render() {
+    renderNav();
+    const main = $("#main");
+    main.innerHTML = "";
+    if (!DATA) return;
+
+    if (currentTab === "site") renderSite(main);
+    else if (currentTab === "photos") renderPhotos(main);
+    else if (currentTab === "tracks") renderTracks(main);
+    else if (currentTab === "projects") renderProjects(main);
+    else if (currentTab === "friends") renderFriends(main);
+    else if (currentTab === "socials") renderSocials(main);
+    else if (currentTab === "ui") renderUI(main);
+  }
+
+  /* ---------- 基本信息 ---------- */
+  function renderSite(main) {
+    const S = DATA.site;
+    main.appendChild(el("h2", "sec", "基本信息")).appendChild(el("span", "hint", "首页名片、关于我、近况"));
+    main.appendChild(el("p", "sec-desc", "这些内容会出现在首页名片、关于我、页脚和联系页。"));
+
+    main.appendChild(card("名片", null, (body) => {
+      body.appendChild(field("名字", S.name, (v) => (S.name = v), { key: "site.name" }));
+      body.appendChild(field("身份 / 一句话职业", S.role, (v) => (S.role = v), { key: "site.role" }));
+      body.appendChild(field("标语（首页那句）", S.tagline, (v) => (S.tagline = v), { type: "textarea", key: "site.tagline" }));
+      const r = el("div", "row2");
+      r.appendChild(field("邮箱", S.email, (v) => (S.email = v), { key: "site.email" }));
+      r.appendChild(field("QQ", S.qq, (v) => (S.qq = v), { key: "site.qq" }));
+      body.appendChild(r);
+      const r2 = el("div", "row2");
+      r2.appendChild(field("所在地", S.location, (v) => (S.location = v), { key: "site.location" }));
+      r2.appendChild(field("起始年份", S.since, (v) => (S.since = Number(v) || v), { type: "number", key: "site.since" }));
+      body.appendChild(r2);
+      const r3 = el("div", "row2");
+      r3.appendChild(field("状态徽章", S.status, (v) => (S.status = v), { key: "site.status" }));
+      r3.appendChild(field("版本号", S.version, (v) => (S.version = v), { key: "site.version" }));
+      body.appendChild(r3);
+      body.appendChild(field("站点地址", S.url, (v) => (S.url = v), { key: "site.url", hint: "影响友链信息卡和 RSS 地址" }));
+    }));
+
+    main.appendChild(card("账号链接", null, (body) => {
+      body.appendChild(field("GitHub", S.github, (v) => (S.github = v), { key: "site.github" }));
+      body.appendChild(field("Gitee", S.gitee, (v) => (S.gitee = v), { key: "site.gitee" }));
+      body.appendChild(field("Bilibili", S.bilibili, (v) => (S.bilibili = v), { key: "site.bilibili" }));
+    }));
+
+    main.appendChild(card("关于我（段落）", null, (body) => {
+      body.appendChild(listField("每段一条", S.about, (arr) => (S.about = arr), { key: "site.about" }));
+    }));
+
+    main.appendChild(card("近况（首页 NOW 面板）", null, (body) => {
+      body.appendChild(field("更新日期", S.nowUpdated, (v) => (S.nowUpdated = v), { key: "site.nowUpdated", hint: "显示成「更新于 xxx」" }));
+      const box = el("div", "listfield");
+      body.appendChild(box);
+
+      function rebuild() {
+        box.innerHTML = "";
+        S.now.forEach((item, i) => {
+          const row = el("div", "item");
+          const k = el("input");
+          k.type = "text"; k.value = item.k; k.style.flex = "0 0 84px";
+          k.addEventListener("input", () => { item.k = k.value; markDirty(); });
+          const v = el("input");
+          v.type = "text"; v.value = item.v; v.style.flex = "1 1 auto";
+          v.addEventListener("input", () => { item.v = v.value; markDirty(); });
+          const del = el("button", null, "删");
+          del.type = "button";
+          del.addEventListener("click", () => { S.now.splice(i, 1); markDirty(); rebuild(); });
+          row.appendChild(k); row.appendChild(v); row.appendChild(del);
+          box.appendChild(row);
+        });
+        const add = el("button", "add", "+ 添加一条近况");
+        add.type = "button";
+        add.addEventListener("click", () => { S.now.push({ k: "", v: "" }); markDirty(); rebuild(); });
+        box.appendChild(add);
+      }
+      rebuild();
+    }));
+
+    main.appendChild(card("Steam 配置", null, (body) => {
+      body.appendChild(field("Steam 主页地址", DATA.steam.profileUrl, (v) => (DATA.steam.profileUrl = v), {
+        key: "steam.profileUrl",
+        hint: "动态页右上「查看主页」按钮用的地址"
+      }));
+      body.appendChild(field("更新频率说明", DATA.steam.refreshHint, (v) => (DATA.steam.refreshHint = v), { key: "steam.refreshHint" }));
+    }));
+  }
+
+  /* ---------- 相册 ---------- */
+  function renderPhotos(main) {
+    main.appendChild(el("h2", "sec", "相册")).appendChild(el("span", "hint", DATA.photos.length + " 张"));
+    main.appendChild(el("p", "sec-desc",
+      "改标题、分类和说明。「加一张」会读取图片真实宽高并自动填好，不用手算。图片文件放在 " + PHOTOS_DIR + "/。"));
+
+    const addRow = el("div");
+    addRow.style.cssText = "margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap";
+    const addBtn = el("button", "primary", "+ 加一张图片");
+    addBtn.type = "button";
+    addBtn.addEventListener("click", addPhoto);
+    addRow.appendChild(addBtn);
+    main.appendChild(addRow);
+
+    DATA.photos.forEach((p, i) => {
+      const c = card(p.caption || "(未命名)", i + 1, (body) => {
+        const head = el("div", "photo-head");
+        const img = el("img", "thumb");
+        img.src = "../" + p.src;
+        img.alt = "";
+        img.loading = "lazy";
+        head.appendChild(img);
+
+        const meta = el("div", "meta");
+        meta.appendChild(field("标题", p.caption, (v) => {
+          p.caption = v;
+          c.querySelector(".card-head .grow").textContent = v || "(未命名)";
+        }, { key: "photos[].caption" }));
+        const r = el("div", "row2");
+        r.appendChild(field("分类标签", p.tag, (v) => (p.tag = v), { key: "photos[].tag", hint: "相册页顶部筛选用" }));
+        r.appendChild(field("文件名", p.src, (v) => (p.src = v), { key: "photos[].src" }));
+        meta.appendChild(r);
+        head.appendChild(meta);
+        body.appendChild(head);
+
+        body.appendChild(el("div", "hintline",
+          `尺寸 ${p.w}×${p.h}（自动读取，一般不用改）`));
+      }, {
+        onDelete: () => {
+          DATA.photos.splice(i, 1);
+          render();
+        }
+      });
+      main.appendChild(c);
+    });
+
+    if (!DATA.photos.length) main.appendChild(el("div", "empty", "还没有图片，点上面「加一张图片」"));
+  }
+
+  async function addPhoto() {
+    if (!window.showOpenFilePicker) { toast("这个浏览器不支持选文件，请用 Chrome / Edge"); return; }
+    try {
+      const [fh] = await window.showOpenFilePicker({
+        types: [{ description: "图片", accept: { "image/*": [".jpg", ".jpeg", ".png", ".webp"] } }],
+        multiple: false
+      });
+      const file = await fh.getFile();
+      const { w, h } = await imageSize(file);
+      const name = file.name.replace(/[^\w.\-]/g, "_");
+
+      /* 若已授权目录，顺便把文件写进 assets/photos/ */
+      let finalName = name;
+      if (dirHandle) {
+        try {
+          const photoDir = await dirHandle.getDirectoryHandle("assets")
+            .then((d) => d.getDirectoryHandle("photos"));
+          const dest = await photoDir.getFileHandle(name, { create: true });
+          const w2 = await dest.createWritable();
+          await w2.write(file);
+          await w2.close();
+          toast("图片已复制到 assets/photos/");
+        } catch (e) {
+          toast("图片没能自动复制，请手动放进 assets/photos/：" + e.message);
+        }
+      }
+
+      DATA.photos.push({
+        src: PHOTOS_DIR + "/" + finalName,
+        w, h,
+        tag: "未分类",
+        caption: file.name.replace(/\.[^.]+$/, "")
+      });
+      markDirty();
+      render();
+    } catch (e) {
+      if (e.name !== "AbortError") toast("添加失败：" + e.message);
+    }
+  }
+
+  function imageSize(file) {
+    return new Promise((res, rej) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        res({ w: img.naturalWidth, h: img.naturalHeight });
+        URL.revokeObjectURL(url);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); rej(new Error("读不出图片尺寸")); };
+      img.src = url;
+    });
+  }
+
+  /* ---------- 歌曲 ---------- */
+  function renderTracks(main) {
+    main.appendChild(el("h2", "sec", "歌曲")).appendChild(el("span", "hint", DATA.tracks.length + " 首"));
+    main.appendChild(el("p", "sec-desc",
+      "磁带架上的歌。时长会自动从音频文件读出来，不用手算秒数。音频放在 " + AUDIO_DIR + "/。"));
+
+    const addRow = el("div");
+    addRow.style.cssText = "margin-bottom:12px";
+    const addBtn = el("button", "primary", "+ 加一首歌");
+    addBtn.type = "button";
+    addBtn.addEventListener("click", addTrack);
+    addRow.appendChild(addBtn);
+    main.appendChild(addRow);
+
+    DATA.tracks.forEach((t, i) => {
+      const c = card(t.title || "(未命名)", i + 1, (body) => {
+        body.appendChild(field("曲名", t.title, (v) => {
+          t.title = v;
+          c.querySelector(".card-head .grow").textContent = v || "(未命名)";
+        }, { key: "tracks[].title" }));
+        const r = el("div", "row2");
+        r.appendChild(field("艺人", t.artist, (v) => (t.artist = v), { key: "tracks[].artist" }));
+        r.appendChild(field("年份", t.year, (v) => (t.year = Number(v) || v), { type: "number", key: "tracks[].year" }));
+        body.appendChild(r);
+        body.appendChild(field("专辑", t.album, (v) => (t.album = v), { key: "tracks[].album" }));
+
+        const r2 = el("div", "row2");
+        r2.appendChild(field("音频文件", t.src, (v) => (t.src = v), { key: "tracks[].src" }));
+        r2.appendChild(field("时长（秒）", t.dur, (v) => (t.dur = Number(v) || 0), {
+          type: "number", key: "tracks[].dur", hint: "点下面按钮可自动读取"
+        }));
+        body.appendChild(r2);
+
+        const durBtn = el("button", null, "从音频文件读取时长");
+        durBtn.type = "button";
+        durBtn.addEventListener("click", () => readDuration(t, c));
+        body.appendChild(durBtn);
+
+        const r3 = el("div", "row2");
+        r3.appendChild(field("卡片色条", t.stripe, (v) => (t.stripe = v), {
+          type: "select", key: "tracks[].stripe",
+          options: [
+            { value: "blue", label: "blue 蓝" },
+            { value: "pink", label: "pink 粉" },
+            { value: "lime", label: "lime 黄绿" },
+            { value: "gray", label: "gray 灰" }
+          ]
+        }));
+        r3.appendChild(field("id", t.id, (v) => (t.id = v), { key: "tracks[].id", hint: "内部标识，可留空" }));
+        body.appendChild(r3);
+
+        body.appendChild(listField("听感备注（每行一条）", t.note, (arr) => (t.note = arr), { key: "tracks[].note" }));
+      }, {
+        onDelete: () => { DATA.tracks.splice(i, 1); render(); }
+      });
+      main.appendChild(c);
+    });
+  }
+
+  async function readDuration(t, cardEl) {
+    if (!t.src) { toast("先填音频文件名"); return; }
+    const audio = new Audio("../" + t.src);
+    audio.addEventListener("loadedmetadata", () => {
+      if (!isFinite(audio.duration)) { toast("读不出时长，可能文件路径不对"); return; }
+      t.dur = Math.round(audio.duration * 100) / 100;
+      markDirty();
+      render();
+      toast("时长：" + Math.floor(t.dur / 60) + ":" + String(Math.round(t.dur % 60)).padStart(2, "0"));
+    });
+    audio.addEventListener("error", () => toast("音频加载失败：" + t.src));
+    audio.load();
+  }
+
+  async function addTrack() {
+    if (!window.showOpenFilePicker) { toast("这个浏览器不支持选文件，请用 Chrome / Edge"); return; }
+    try {
+      const [fh] = await window.showOpenFilePicker({
+        types: [{ description: "音频", accept: { "audio/*": [".mp3", ".flac", ".wav", ".m4a", ".ogg"] } }],
+        multiple: false
+      });
+      const file = await fh.getFile();
+      const name = file.name.replace(/[^\w.\-]/g, "_");
+
+      if (dirHandle) {
+        try {
+          const audioDir = await dirHandle.getDirectoryHandle("assets")
+            .then((d) => d.getDirectoryHandle("audio"));
+          const dest = await audioDir.getFileHandle(name, { create: true });
+          const w = await dest.createWritable();
+          await w.write(file);
+          await w.close();
+        } catch (e) {
+          toast("音频没能自动复制，请手动放进 " + AUDIO_DIR + "/");
+        }
+      }
+
+      const dur = await audioDuration(file);
+
+      DATA.tracks.push({
+        id: "track" + Date.now(),
+        title: file.name.replace(/\.[^.]+$/, ""),
+        artist: "",
+        album: "",
+        year: new Date().getFullYear(),
+        src: AUDIO_DIR + "/" + name,
+        dur: dur || 0,
+        stripe: "blue",
+        note: [""]
+      });
+      markDirty();
+      render();
+    } catch (e) {
+      if (e.name !== "AbortError") toast("添加失败：" + e.message);
+    }
+  }
+
+  function audioDuration(file) {
+    return new Promise((res) => {
+      const url = URL.createObjectURL(file);
+      const a = new Audio();
+      a.onloadedmetadata = () => {
+        const d = Math.round(a.duration * 100) / 100;
+        URL.revokeObjectURL(url);
+        res(isFinite(d) ? d : 0);
+      };
+      a.onerror = () => { URL.revokeObjectURL(url); res(0); };
+      a.src = url;
+    });
+  }
+
+  /* ---------- 项目 ---------- */
+  function renderProjects(main) {
+    main.appendChild(el("h2", "sec", "项目")).appendChild(el("span", "hint", DATA.projects.length + " 个"));
+    main.appendChild(el("p", "sec-desc", "项目页的卡片。仓库地址填 GitHub 或 Gitee 都能识别。"));
+
+    const addRow = el("div");
+    addRow.style.cssText = "margin-bottom:12px";
+    const addBtn = el("button", "primary", "+ 加一个项目");
+    addBtn.type = "button";
+    addBtn.addEventListener("click", () => {
+      DATA.projects.push({
+        id: "proj" + Date.now(),
+        title: "新项目",
+        subtitle: "",
+        summary: "",
+        year: new Date().getFullYear(),
+        status: "wip",
+        host: "github",
+        tags: [],
+        stack: "",
+        repo: "",
+        stripe: "blue"
+      });
+      markDirty();
+      render();
+    });
+    addRow.appendChild(addBtn);
+    main.appendChild(addRow);
+
+    DATA.projects.forEach((p, i) => {
+      const c = card(p.title || "(未命名)", i + 1, (body) => {
+        body.appendChild(field("名称", p.title, (v) => {
+          p.title = v;
+          c.querySelector(".card-head .grow").textContent = v || "(未命名)";
+        }, { key: "projects[].title" }));
+        body.appendChild(field("副标题", p.subtitle, (v) => (p.subtitle = v), { key: "projects[].subtitle" }));
+        body.appendChild(field("简介", p.summary, (v) => (p.summary = v), { type: "textarea", key: "projects[].summary" }));
+
+        const r = el("div", "row3");
+        r.appendChild(field("年份", p.year, (v) => (p.year = Number(v) || v), { type: "number", key: "projects[].year" }));
+        r.appendChild(field("状态", p.status, (v) => (p.status = v), {
+          type: "select", key: "projects[].status",
+          options: [
+            { value: "live", label: "维护中" },
+            { value: "wip", label: "开发中" },
+            { value: "arch", label: "已归档" }
+          ]
+        }));
+        r.appendChild(field("色条", p.stripe, (v) => (p.stripe = v), {
+          type: "select", key: "projects[].stripe",
+          options: [
+            { value: "blue", label: "blue" },
+            { value: "pink", label: "pink" },
+            { value: "lime", label: "lime" },
+            { value: "gray", label: "gray" }
+          ]
+        }));
+        body.appendChild(r);
+
+        const r2 = el("div", "row2");
+        r2.appendChild(field("仓库地址", p.repo, (v) => {
+          p.repo = v;
+          p.host = /gitee\.com/.test(v) ? "gitee" : "github";
+        }, { key: "projects[].repo" }));
+        r2.appendChild(field("技术栈说明", p.stack, (v) => (p.stack = v), { key: "projects[].stack" }));
+        body.appendChild(r2);
+
+        body.appendChild(field("标签（逗号分隔）", (p.tags || []).join(", "), (v) => {
+          p.tags = v.split(",").map((s) => s.trim()).filter(Boolean);
+        }, { key: "projects[].tags" }));
+      }, {
+        onDelete: () => { DATA.projects.splice(i, 1); render(); }
+      });
+      main.appendChild(c);
+    });
+  }
+
+  /* ---------- 友链 ---------- */
+  function renderFriends(main) {
+    main.appendChild(el("h2", "sec", "友情链接")).appendChild(el("span", "hint", DATA.friends.length + " 个"));
+    main.appendChild(el("p", "sec-desc", "友链页的卡片，首页侧栏也会显示前几个。"));
+
+    const addRow = el("div");
+    addRow.style.cssText = "margin-bottom:12px";
+    const addBtn = el("button", "primary", "+ 加一个友链");
+    addBtn.type = "button";
+    addBtn.addEventListener("click", () => {
+      DATA.friends.push({ name: "新站点", desc: "", url: "https://", tags: [] });
+      markDirty();
+      render();
+    });
+    addRow.appendChild(addBtn);
+    main.appendChild(addRow);
+
+    DATA.friends.forEach((f, i) => {
+      const c = card(f.name || "(未命名)", i + 1, (body) => {
+        body.appendChild(field("站点名", f.name, (v) => {
+          f.name = v;
+          c.querySelector(".card-head .grow").textContent = v || "(未命名)";
+        }, { key: "friends[].name" }));
+        body.appendChild(field("描述", f.desc, (v) => (f.desc = v), { type: "textarea", key: "friends[].desc" }));
+        body.appendChild(field("网址", f.url, (v) => (f.url = v), { key: "friends[].url" }));
+        body.appendChild(field("标签（逗号分隔）", (f.tags || []).join(", "), (v) => {
+          f.tags = v.split(",").map((s) => s.trim()).filter(Boolean);
+        }, { key: "friends[].tags" }));
+      }, {
+        onDelete: () => { DATA.friends.splice(i, 1); render(); }
+      });
+      main.appendChild(c);
+    });
+  }
+
+  /* ---------- 入口 ---------- */
+  function renderSocials(main) {
+    main.appendChild(el("h2", "sec", "别的入口")).appendChild(el("span", "hint", DATA.socials.length + " 个"));
+    main.appendChild(el("p", "sec-desc", "联系页 ELSEWHERE 列表里的那些链接。"));
+
+    const addRow = el("div");
+    addRow.style.cssText = "margin-bottom:12px";
+    const addBtn = el("button", "primary", "+ 加一个入口");
+    addBtn.type = "button";
+    addBtn.addEventListener("click", () => {
+      DATA.socials.push({ label: "新入口", handle: "", url: "https://", kind: "" });
+      markDirty();
+      render();
+    });
+    addRow.appendChild(addBtn);
+    main.appendChild(addRow);
+
+    DATA.socials.forEach((s, i) => {
+      const c = card(s.label || "(未命名)", i + 1, (body) => {
+        const r = el("div", "row2");
+        r.appendChild(field("名称", s.label, (v) => {
+          s.label = v;
+          c.querySelector(".card-head .grow").textContent = v || "(未命名)";
+        }, { key: "socials[].label" }));
+        r.appendChild(field("类型", s.kind, (v) => (s.kind = v), { key: "socials[].kind", hint: "显示在左侧，如「代码」「邮件」" }));
+        body.appendChild(r);
+        body.appendChild(field("显示值", s.handle, (v) => (s.handle = v), { key: "socials[].handle" }));
+        body.appendChild(field("链接", s.url, (v) => (s.url = v), { key: "socials[].url" }));
+      }, {
+        onDelete: () => { DATA.socials.splice(i, 1); render(); }
+      });
+      main.appendChild(c);
+    });
+  }
+
+  /* ---------- 界面文案 ---------- */
+  /* 分组来源：优先用 data.js 里 uiGroup 映射；没有则回退到当前文档的 data-ui-group */
+  let uiGroupMap = null;
+
+  function buildGroupMap() {
+    if (uiGroupMap) return uiGroupMap;
+    uiGroupMap = {};
+    /* 1. 尝试从当前文档读（同一页面内嵌时可用） */
+    document.querySelectorAll("[data-ui]").forEach((n) => {
+      const k = n.getAttribute("data-ui");
+      const g = n.getAttribute("data-ui-group");
+      if (k && g) uiGroupMap[k] = g;
+    });
+    /* 2. data.js 里若带 uiGroup 映射则合并 */
+    if (DATA && DATA.uiGroup) {
+      Object.assign(uiGroupMap, DATA.uiGroup);
+    }
+    return uiGroupMap;
+  }
+
+  function renderUI(main) {
+    const ui = DATA.ui || {};
+    const keys = Object.keys(ui);
+    const groupMap = buildGroupMap();
+
+    main.appendChild(el("h2", "sec", "界面文案")).appendChild(el("span", "hint", keys.length + " 条"));
+    main.appendChild(el("p", "sec-desc",
+      "这些是页面上那些固定的说明文字。按页面分组，改完保存即可。"));
+
+    /* 搜索框 */
+    const searchWrap = el("div", "field");
+    searchWrap.style.cssText = "margin-bottom:14px";
+    const si = el("input");
+    si.type = "text";
+    si.placeholder = "搜索文案内容或 key…";
+    searchWrap.appendChild(si);
+    main.appendChild(searchWrap);
+
+    const listBox = el("div");
+    main.appendChild(listBox);
+
+    /* 按 group 归组 */
+    const groups = {};
+    keys.forEach((k) => {
+      const g = groupMap[k] || "其他";
+      if (!groups[g]) groups[g] = [];
+      groups[g].push(k);
+    });
+
+    function paint(filter) {
+      listBox.innerHTML = "";
+      const f = (filter || "").trim().toLowerCase();
+
+      Object.keys(groups).sort((a, b) => a.localeCompare(b, "zh")).forEach((g) => {
+        const matched = groups[g].filter((k) =>
+          !f || ui[k].toLowerCase().includes(f) || k.toLowerCase().includes(f)
+        );
+        if (!matched.length) return;
+
+        const c = el("div", "card");
+        const head = el("div", "card-head");
+        head.appendChild(el("span", "grow", g));
+        head.appendChild(el("span", "idx", matched.length + " 条"));
+        c.appendChild(head);
+
+        const body = el("div", "card-body");
+        matched.forEach((k) => {
+          const isLong = ui[k].length > 34;
+          body.appendChild(field(
+            ui[k].length > 46 ? ui[k].slice(0, 46) + "…" : ui[k],
+            ui[k],
+            (v) => { ui[k] = v; markDirty(); },
+            { key: k, type: isLong ? "textarea" : "text", rows: 2, live: true }
+          ));
+        });
+        c.appendChild(body);
+        listBox.appendChild(c);
+      });
+
+      if (!listBox.children.length) {
+        listBox.appendChild(el("div", "empty", "没有匹配的文案"));
+      }
+    }
+
+    si.addEventListener("input", () => paint(si.value));
+    paint("");
+  }
+
+  /* ============================================================
+     导出
+     ============================================================ */
+  $("#btnExport").addEventListener("click", () => {
+    if (!DATA) { toast("还没有载入数据"); return; }
+    const text = serializeDataFile(DATA);
+    const blob = new Blob([text], { type: "text/javascript;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "data.js";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast("已导出 data.js，替换 assets/js/data.js 即可");
+  });
+
+  /* ============================================================
+     按钮绑定
+     ============================================================ */
+  $("#btnOpen").addEventListener("click", pickDir);
+  $("#btnOpen2").addEventListener("click", pickDir);
+  $("#btnSave").addEventListener("click", save);
+
+  window.addEventListener("beforeunload", (e) => {
+    if (dirty) {
+      e.preventDefault();
+      e.returnValue = "";
+    }
+  });
+
+  /* 快捷键：Ctrl/Cmd + S 保存 */
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s") {
+      e.preventDefault();
+      save();
+    }
+  });
+
+  /* ============================================================
+     启动
+     ============================================================ */
+  tryRestore();
+})();
+</script>
+</body>
+</html>

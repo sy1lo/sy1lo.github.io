@@ -77,8 +77,8 @@
 
           <article class="panel">
             <div class="panel__head">
-              <h2>NOW PLAYING / 正在放</h2>
-              <span class="panel__hint">DECK 01 · 真·音频</span>
+              <h2 data-ui="home.p1.h1" data-ui-group="首页 · 正在放">NOW PLAYING / 正在放</h2>
+              <span class="panel__hint" data-ui="home.p1.k1" data-ui-group="首页 · 正在放">DECK 01 · 真·音频</span>
             </div>
             <div class="panel__body">
               <div class="stage">
@@ -108,10 +108,10 @@
               </div>
 
               <div class="hero-head">
-                <h2 class="hero-title" id="npTitle">Luv (sic) pt4</h2>
+                <h2 class="hero-title" id="npTitle" data-ui="home.p1.h2" data-ui-group="首页 · 正在放 · 副标题">Luv (sic) pt4</h2>
                 <span class="chip" id="npTag">2005</span>
               </div>
-              <p class="hero-sub" id="npArtist">Nujabes &amp; Shing02</p>
+              <p class="hero-sub" id="npArtist" data-ui="home.p1.p1" data-ui-group="首页 · 正在放">Nujabes &amp; Shing02</p>
 
               <div class="wave" id="wave" role="slider" tabindex="0" aria-label="播放进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                 <div class="wave__bars" id="waveBars"></div>
@@ -171,8 +171,8 @@
 
           <article class="panel">
             <div class="panel__head">
-              <h2>PROFILE / 关于我</h2>
-              <span class="panel__hint">README.md</span>
+              <h2 data-ui="home.p2.h1" data-ui-group="首页 · 关于我">PROFILE / 关于我</h2>
+              <span class="panel__hint" data-ui="home.p2.k1" data-ui-group="首页 · 关于我">README.md</span>
             </div>
             <div class="panel__body">
               <div class="idcard">
@@ -216,12 +216,12 @@
                 </div>
               </div>
 
-              <p class="lede" id="heroLede">把一个个人主页做成一台老式软件，能点的地方都真的能点。</p>
+              <p class="lede" id="heroLede" data-ui="home.p2.p1" data-ui-group="首页 · 关于我">把一个个人主页做成一台老式软件，能点的地方都真的能点。</p>
               <div class="prose" id="aboutText"></div>
               <div class="facts" id="aboutFacts"></div>
               <div class="actions">
                 <a class="btn btn--primary" id="mailBtn" href="mailto:2135619868@qq.com">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.8" y="3.6" width="12.4" height="8.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2.3 4.2L8 8.6l5.7-4.4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.8" y="3.6" width="12.4" height="8.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2.3 4.2L8 8.6l5.7-4.4" fill="none" stroke="currentColor" stroke-width="1.6"/ data-ui="home.p2.p2" data-ui-group="首页 · 关于我"></svg>
                   给我发邮件
                 </a>
                 <button class="btn" type="button" id="copyMailHome">复制邮箱</button>
@@ -235,8 +235,8 @@
 
           <article class="panel">
             <div class="panel__head">
-              <h2>NOW / 近况</h2>
-              <span class="panel__hint" id="nowUpdated">更新于 —</span>
+              <h2 data-ui="home.p3.h1" data-ui-group="首页 · 近况">NOW / 近况</h2>
+              <span class="panel__hint" id="nowUpdated" data-ui="home.p3.k1" data-ui-group="首页 · 近况">更新于 —</span>
             </div>
             <div class="panel__body panel__body--tight">
               <ul class="nowlist" id="nowList"></ul>
@@ -247,8 +247,8 @@
         <div class="col col--side">
           <section class="panel">
             <div class="panel__head">
-              <h2>TAPE SHELF / 磁带架</h2>
-              <span class="panel__hint" id="shelfCount">6 TRACKS</span>
+              <h2 data-ui="home.p4.h1" data-ui-group="首页 · 磁带架">TAPE SHELF / 磁带架</h2>
+              <span class="panel__hint" id="shelfCount" data-ui="home.p4.k1" data-ui-group="首页 · 磁带架">6 TRACKS</span>
             </div>
             <div class="panel__body panel__body--tight">
               <div class="shelf" id="shelf" role="listbox" aria-label="磁带架：我的歌单"></div>
@@ -257,8 +257,8 @@
 
           <section class="panel panel--eq">
             <div class="panel__head">
-              <h2><i class="eqdot" aria-hidden="true"></i>EQUALIZER</h2>
-              <span class="panel__hint">REACTIVE</span>
+              <h2 data-ui="home.p5.h1" data-ui-group="首页 · EQUALIZER"><i class="eqdot" aria-hidden="true"></i>EQUALIZER</h2>
+              <span class="panel__hint" data-ui="home.p5.k1" data-ui-group="首页 · EQUALIZER">REACTIVE</span>
             </div>
             <div class="panel__body panel__body--tight">
               <div class="eq" id="eq" aria-hidden="true"></div>
@@ -268,8 +268,8 @@
 
           <section class="panel">
             <div class="panel__head">
-              <h2>TRACK INFO / 曲目信息</h2>
-              <span class="panel__hint" id="infoSource">LOCAL FILE</span>
+              <h2 data-ui="home.p6.h1" data-ui-group="首页 · 曲目信息">TRACK INFO / 曲目信息</h2>
+              <span class="panel__hint" id="infoSource" data-ui="home.p6.k1" data-ui-group="首页 · 曲目信息">LOCAL FILE</span>
             </div>
             <div class="panel__body">
               <dl class="info">
@@ -291,8 +291,8 @@
 
           <section class="panel">
             <div class="panel__head">
-              <h2>WORKS / 项目</h2>
-              <button class="panel__more" type="button" data-goto="works" id="pinnedMore">全部 →</button>
+              <h2 data-ui="home.p7.h1" data-ui-group="首页 · 项目">WORKS / 项目</h2>
+              <button class="panel__more" type="button" data-goto="works" id="pinnedMore" data-ui="home.p7.m1" data-ui-group="首页 · 项目">全部 →</button>
             </div>
             <div class="panel__body panel__body--tight">
               <div class="pinned" id="pinnedList"></div>
@@ -301,8 +301,8 @@
 
           <section class="panel">
             <div class="panel__head">
-              <h2>GALLERY / 相册</h2>
-              <button class="panel__more" type="button" data-goto="gallery">全部 →</button>
+              <h2 data-ui="home.p8.h1" data-ui-group="首页 · 相册">GALLERY / 相册</h2>
+              <button class="panel__more" type="button" data-goto="gallery" data-ui="home.p8.m1" data-ui-group="首页 · 相册">全部 →</button>
             </div>
             <div class="panel__body panel__body--tight">
               <div class="thumbs" id="galleryMini"></div>
@@ -311,8 +311,8 @@
 
           <section class="panel">
             <div class="panel__head">
-              <h2>STEAM / 最近</h2>
-              <button class="panel__more" type="button" data-goto="feed">全部 →</button>
+              <h2 data-ui="home.p9.h1" data-ui-group="首页 · 最近">STEAM / 最近</h2>
+              <button class="panel__more" type="button" data-goto="feed" data-ui="home.p9.m1" data-ui-group="首页 · 最近">全部 →</button>
             </div>
             <div class="panel__body panel__body--tight">
               <div class="steam-mini" id="steamMini"></div>
@@ -321,8 +321,8 @@
 
           <section class="panel">
             <div class="panel__head">
-              <h2>FRIENDS / 友链</h2>
-              <button class="panel__more" type="button" data-goto="friends">全部 →</button>
+              <h2 data-ui="home.p10.h1" data-ui-group="首页 · 友链">FRIENDS / 友链</h2>
+              <button class="panel__more" type="button" data-goto="friends" data-ui="home.p10.m1" data-ui-group="首页 · 友链">全部 →</button>
             </div>
             <div class="panel__body panel__body--tight">
               <div class="friends-mini" id="friendsMini"></div>
@@ -331,8 +331,8 @@
 
           <section class="panel">
             <div class="panel__head">
-              <h2>LOCAL / 此刻</h2>
-              <span class="panel__hint">GMT+8</span>
+              <h2 data-ui="home.p11.h1" data-ui-group="首页 · 此刻">LOCAL / 此刻</h2>
+              <span class="panel__hint" data-ui="home.p11.k1" data-ui-group="首页 · 此刻">GMT+8</span>
             </div>
             <div class="panel__body">
               <div class="clock" id="clock">--:--:--</div>
@@ -350,11 +350,11 @@
         <div class="col col--main">
           <article class="panel">
             <div class="panel__head">
-              <h2>WORKS / 项目</h2>
-              <span class="panel__hint" id="workCount">2 ITEMS</span>
+              <h2 data-ui="works.p1.h1" data-ui-group="项目页 · 项目">WORKS / 项目</h2>
+              <span class="panel__hint" id="workCount" data-ui="works.p1.k1" data-ui-group="项目页 · 项目">2 ITEMS</span>
             </div>
             <div class="panel__body">
-              <p class="filters__hint">只有真实仓库。GitHub 和 Gitee 上都算，点「源码」直接过去。</p>
+              <p class="filters__hint" data-ui="works.p1.p1" data-ui-group="项目页 · 项目">只有真实仓库。GitHub 和 Gitee 上都算，点「源码」直接过去。</p>
               <div class="works" id="workList"></div>
             </div>
           </article>
@@ -363,8 +363,8 @@
         <div class="col col--side">
           <section class="panel">
             <div class="panel__head">
-              <h2>BY YEAR / 归档</h2>
-              <span class="panel__hint">ALL TIME</span>
+              <h2 data-ui="works.p2.h1" data-ui-group="项目页 · 归档">BY YEAR / 归档</h2>
+              <span class="panel__hint" data-ui="works.p2.k1" data-ui-group="项目页 · 归档">ALL TIME</span>
             </div>
             <div class="panel__body panel__body--tight">
               <ul class="yearlist" id="yearList"></ul>
@@ -373,27 +373,27 @@
 
           <section class="panel">
             <div class="panel__head">
-              <h2>STATUS / 图例</h2>
-              <span class="panel__hint">LEGEND</span>
+              <h2 data-ui="works.p3.h1" data-ui-group="项目页 · 图例">STATUS / 图例</h2>
+              <span class="panel__hint" data-ui="works.p3.k1" data-ui-group="项目页 · 图例">LEGEND</span>
             </div>
             <div class="panel__body">
               <ul class="legend">
-                <li><i class="dot dot--live"></i><b>维护中</b><span>还在更新，欢迎提 issue</span></li>
-                <li><i class="dot dot--wip"></i><b>开发中</b><span>能用，但随时会改</span></li>
-                <li><i class="dot dot--arch"></i><b>已归档</b><span>不再更新，代码留着</span></li>
+                <li><i class="dot dot--live"></i><b data-ui="works.p3.l1" data-ui-group="项目页 · 图例">维护中</b><span data-ui="works.p3.l2" data-ui-group="项目页 · 图例">还在更新，欢迎提 issue</span></li>
+                <li><i class="dot dot--wip"></i><b data-ui="works.p3.l3" data-ui-group="项目页 · 图例">开发中</b><span data-ui="works.p3.l4" data-ui-group="项目页 · 图例">能用，但随时会改</span></li>
+                <li><i class="dot dot--arch"></i><b data-ui="works.p3.l5" data-ui-group="项目页 · 图例">已归档</b><span data-ui="works.p3.l6" data-ui-group="项目页 · 图例">不再更新，代码留着</span></li>
               </ul>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel__head">
-              <h2>CODE / 代码仓库</h2>
-              <span class="panel__hint">2 SITES</span>
+              <h2 data-ui="works.p4.h1" data-ui-group="项目页 · 代码仓库">CODE / 代码仓库</h2>
+              <span class="panel__hint" data-ui="works.p4.k1" data-ui-group="项目页 · 代码仓库">2 SITES</span>
             </div>
             <div class="panel__body">
               <ul class="legend">
-                <li><b>GitHub</b><span>github.com/sy1lo</span></li>
-                <li><b>Gitee</b><span>gitee.com/lsy1105</span></li>
+                <li><b data-ui="works.p4.l1" data-ui-group="项目页 · 代码仓库">GitHub</b><span data-ui="works.p4.l2" data-ui-group="项目页 · 代码仓库">github.com/sy1lo</span></li>
+                <li><b data-ui="works.p4.l3" data-ui-group="项目页 · 代码仓库">Gitee</b><span data-ui="works.p4.l4" data-ui-group="项目页 · 代码仓库">gitee.com/lsy1105</span></li>
               </ul>
               <div class="actions actions--tight">
                 <a class="btn" href="https://github.com/sy1lo" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
@@ -411,8 +411,8 @@
         <div class="col col--main">
           <article class="panel">
             <div class="panel__head">
-              <h2>GALLERY / 相册</h2>
-              <span class="panel__hint" id="photoCount">8 PHOTOS</span>
+              <h2 data-ui="gallery.p1.h1" data-ui-group="相册页 · 相册">GALLERY / 相册</h2>
+              <span class="panel__hint" id="photoCount" data-ui="gallery.p1.k1" data-ui-group="相册页 · 相册">8 PHOTOS</span>
             </div>
             <div class="panel__body">
               <div class="notebar">
@@ -428,25 +428,25 @@
         <div class="col col--side">
           <section class="panel">
             <div class="panel__head">
-              <h2>ABOUT / 说明</h2>
-              <span class="panel__hint">300</span>
+              <h2 data-ui="gallery.p2.h1" data-ui-group="相册页 · 说明">ABOUT / 说明</h2>
+              <span class="panel__hint" data-ui="gallery.p2.k1" data-ui-group="相册页 · 说明">300</span>
             </div>
             <div class="panel__body">
-              <p class="prose">这里放平时存的插画和截图。有些是喜欢的作品，有些是自己截的，来源都记在文件名和说明里。</p>
-              <p class="prose prose--muted">图片都压过，单张 130–370 KB，整册不到 2 MB。</p>
+              <p class="prose" data-ui="gallery.p2.p1" data-ui-group="相册页 · 说明">这里放平时存的插画和截图。有些是喜欢的作品，有些是自己截的，来源都记在文件名和说明里。</p>
+              <p class="prose prose--muted" data-ui="gallery.p2.p2" data-ui-group="相册页 · 说明">图片都压过，单张 130–370 KB，整册不到 2 MB。</p>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel__head">
-              <h2>HOW IT WORKS</h2>
-              <span class="panel__hint">JUSTIFIED</span>
+              <h2 data-ui="gallery.p3.h1" data-ui-group="相册页 · HOW IT WORKS">HOW IT WORKS</h2>
+              <span class="panel__hint" data-ui="gallery.p3.k1" data-ui-group="相册页 · HOW IT WORKS">JUSTIFIED</span>
             </div>
             <div class="panel__body">
               <ul class="tips">
-                <li>按行排布，每行等高，宽度按图片比例分配。</li>
-                <li>窗口变化会重新计算行，不会出现尴尬的空洞。</li>
-                <li>图片带真实宽高，加载时不抖动。</li>
+                <li data-ui="gallery.p3.l1" data-ui-group="相册页 · HOW IT WORKS">按行排布，每行等高，宽度按图片比例分配。</li>
+                <li data-ui="gallery.p3.l2" data-ui-group="相册页 · HOW IT WORKS">窗口变化会重新计算行，不会出现尴尬的空洞。</li>
+                <li data-ui="gallery.p3.l3" data-ui-group="相册页 · HOW IT WORKS">图片带真实宽高，加载时不抖动。</li>
               </ul>
             </div>
           </section>
@@ -460,8 +460,8 @@
         <div class="col col--main">
           <article class="panel">
             <div class="panel__head">
-              <h2>STEAM / 最近在玩</h2>
-              <span class="panel__hint" id="steamUpdated">—</span>
+              <h2 data-ui="feed.p1.h1" data-ui-group="动态页 · 最近在玩">STEAM / 最近在玩</h2>
+              <span class="panel__hint" id="steamUpdated" data-ui="feed.p1.k1" data-ui-group="动态页 · 最近在玩">—</span>
             </div>
             <div class="panel__body">
               <div class="steam-hero" id="steamHero">
@@ -476,8 +476,8 @@
               <dl class="steam-stats" id="steamStats"></dl>
 
               <div class="subhead">
-                <h2>RECENT / 最近两周</h2>
-                <span class="panel__hint" id="recentCount">0 GAMES</span>
+                <h2 data-ui="feed.p1.h2" data-ui-group="动态页 · 最近在玩 · 副标题">RECENT / 最近两周</h2>
+                <span class="panel__hint" id="recentCount" data-ui="feed.p1.k2" data-ui-group="动态页 · 最近在玩">0 GAMES</span>
               </div>
               <div class="steam-recent" id="steamRecent"></div>
             </div>
@@ -487,8 +487,8 @@
         <div class="col col--side">
           <section class="panel">
             <div class="panel__head">
-              <h2>MOST PLAYED / 时长榜</h2>
-              <span class="panel__hint">ALL TIME</span>
+              <h2 data-ui="feed.p2.h1" data-ui-group="动态页 · 时长榜">MOST PLAYED / 时长榜</h2>
+              <span class="panel__hint" data-ui="feed.p2.k1" data-ui-group="动态页 · 时长榜">ALL TIME</span>
             </div>
             <div class="panel__body panel__body--tight">
               <div class="steam-top" id="steamTop"></div>
@@ -497,17 +497,17 @@
 
           <section class="panel">
             <div class="panel__head">
-              <h2>HOW / 数据怎么来的</h2>
-              <span class="panel__hint">JSON + 前端渲染</span>
+              <h2 data-ui="feed.p3.h1" data-ui-group="动态页 · 数据怎么来的">HOW / 数据怎么来的</h2>
+              <span class="panel__hint" data-ui="feed.p3.k1" data-ui-group="动态页 · 数据怎么来的">JSON + 前端渲染</span>
             </div>
             <div class="panel__body">
               <ol class="tips">
                 <li>GitHub Actions 按 <code>cron</code> 定时跑 <code>scripts/fetch-steam.js</code>。</li>
                 <li>脚本调 Steam Web API，把结果写成 <code>steam.json</code> 并提交回仓库。</li>
                 <li>这个页面 <code>fetch</code> 同源的 <code>steam.json</code>，自己决定怎么画。</li>
-                <li>API key 只存在仓库 Secrets 里，前端永远看不到。</li>
+                <li data-ui="feed.p3.l1" data-ui-group="动态页 · 数据怎么来的">API key 只存在仓库 Secrets 里，前端永远看不到。</li>
               </ol>
-              <p class="prose prose--small prose--muted" id="steamHint">更新频率：每天两次。</p>
+              <p class="prose prose--small prose--muted" id="steamHint" data-ui="feed.p3.p1" data-ui-group="动态页 · 数据怎么来的">更新频率：每天两次。</p>
             </div>
           </section>
         </div>
@@ -520,27 +520,27 @@
         <div class="col col--main">
           <article class="panel">
             <div class="panel__head">
-              <h2>FRIENDS / 友情链接</h2>
-              <span class="panel__hint" id="friendCount">1 SITE</span>
+              <h2 data-ui="friends.p1.h1" data-ui-group="友链页 · 友情链接">FRIENDS / 友情链接</h2>
+              <span class="panel__hint" id="friendCount" data-ui="friends.p1.k1" data-ui-group="友链页 · 友情链接">1 SITE</span>
             </div>
             <div class="panel__body">
-              <p class="prose prose--muted">这些人的博客我基本每期都看。顺序不分先后，链接都能打开。</p>
+              <p class="prose prose--muted" data-ui="friends.p1.p1" data-ui-group="友链页 · 友情链接">这些人的博客我基本每期都看。顺序不分先后，链接都能打开。</p>
               <div class="friend-grid" id="friendList"></div>
             </div>
           </article>
 
           <article class="panel">
             <div class="panel__head">
-              <h2>APPLY / 申请友链</h2>
-              <span class="panel__hint">OPEN</span>
+              <h2 data-ui="friends.p2.h1" data-ui-group="友链页 · 申请友链">APPLY / 申请友链</h2>
+              <span class="panel__hint" data-ui="friends.p2.k1" data-ui-group="友链页 · 申请友链">OPEN</span>
             </div>
             <div class="panel__body">
-              <p class="prose">欢迎交换链接，先看看这几条，省得来回问：</p>
+              <p class="prose" data-ui="friends.p2.p1" data-ui-group="友链页 · 申请友链">欢迎交换链接，先看看这几条，省得来回问：</p>
               <ul class="tips">
-                <li>站点有自己的内容，不是纯转载或采集站。</li>
-                <li>半年内更新过，能正常访问（HTTPS 更好）。</li>
-                <li>先把我的链接挂上去，再来邮件告诉我。</li>
-                <li>只收个人站点；公司站、导流站、批量生成站不接。</li>
+                <li data-ui="friends.p2.l1" data-ui-group="友链页 · 申请友链">站点有自己的内容，不是纯转载或采集站。</li>
+                <li data-ui="friends.p2.l2" data-ui-group="友链页 · 申请友链">半年内更新过，能正常访问（HTTPS 更好）。</li>
+                <li data-ui="friends.p2.l3" data-ui-group="友链页 · 申请友链">先把我的链接挂上去，再来邮件告诉我。</li>
+                <li data-ui="friends.p2.l4" data-ui-group="友链页 · 申请友链">只收个人站点；公司站、导流站、批量生成站不接。</li>
               </ul>
               <div class="actions actions--tight">
                 <a class="btn btn--primary" id="applyMail" href="mailto:2135619868@qq.com">发邮件申请</a>
@@ -552,11 +552,11 @@
         <div class="col col--side">
           <section class="panel">
             <div class="panel__head">
-              <h2>MY CARD / 我的信息</h2>
-              <span class="panel__hint">COPY ME</span>
+              <h2 data-ui="friends.p3.h1" data-ui-group="友链页 · 我的信息">MY CARD / 我的信息</h2>
+              <span class="panel__hint" data-ui="friends.p3.k1" data-ui-group="友链页 · 我的信息">COPY ME</span>
             </div>
             <div class="panel__body">
-              <p class="prose prose--small prose--muted">直接复制下面任意一段，比手打省事。</p>
+              <p class="prose prose--small prose--muted" data-ui="friends.p3.p1" data-ui-group="友链页 · 我的信息">直接复制下面任意一段，比手打省事。</p>
               <pre class="snippet" id="myCard">名称：sy1lo</pre>
               <div class="actions actions--tight">
                 <button class="chip chip--btn" type="button" data-copy="myCard">复制纯文本</button>
@@ -568,12 +568,12 @@
 
           <section class="panel">
             <div class="panel__head">
-              <h2>NOTE / 说明</h2>
-              <span class="panel__hint">HONEST</span>
+              <h2 data-ui="friends.p4.h1" data-ui-group="友链页 · 说明">NOTE / 说明</h2>
+              <span class="panel__hint" data-ui="friends.p4.k1" data-ui-group="友链页 · 说明">HONEST</span>
             </div>
             <div class="panel__body">
-              <p class="prose">友链不是交换流量，是「这几个人写的东西我愿意推荐」。所以我会真的点进去看。</p>
-              <p class="prose prose--muted">如果哪天关站了，我会把链接挪到归档，不会装作没发生过。</p>
+              <p class="prose" data-ui="friends.p4.p1" data-ui-group="友链页 · 说明">友链不是交换流量，是「这几个人写的东西我愿意推荐」。所以我会真的点进去看。</p>
+              <p class="prose prose--muted" data-ui="friends.p4.p2" data-ui-group="友链页 · 说明">如果哪天关站了，我会把链接挪到归档，不会装作没发生过。</p>
             </div>
           </section>
         </div>
@@ -586,8 +586,8 @@
         <div class="col col--main">
           <article class="panel">
             <div class="panel__head">
-              <h2>CONTACT / 联系</h2>
-              <span class="panel__hint">REPLY ≤ 48H</span>
+              <h2 data-ui="contact.p1.h1" data-ui-group="联系页 · 联系">CONTACT / 联系</h2>
+              <span class="panel__hint" data-ui="contact.p1.k1" data-ui-group="联系页 · 联系">REPLY ≤ 48H</span>
             </div>
             <div class="panel__body">
               <div class="mailcard">
@@ -602,12 +602,12 @@
                   <code id="qqBig">2135619868</code>
                   <button class="chip chip--btn" type="button" id="copyQqBig">复制 QQ</button>
                 </div>
-                <p class="prose prose--small prose--muted">邮件标题写清来意会快很多，比如「友链申请 / 你的站点名」。</p>
+                <p class="prose prose--small prose--muted" data-ui="contact.p1.p1" data-ui-group="联系页 · 联系">邮件标题写清来意会快很多，比如「友链申请 / 你的站点名」。</p>
               </div>
 
               <div class="subhead">
-                <h2>ELSEWHERE / 我的主页</h2>
-                <span class="panel__hint" id="socialCount">5 LINKS</span>
+                <h2 data-ui="contact.p1.h2" data-ui-group="联系页 · 联系 · 副标题">ELSEWHERE / 我的主页</h2>
+                <span class="panel__hint" id="socialCount" data-ui="contact.p1.k2" data-ui-group="联系页 · 联系">5 LINKS</span>
               </div>
               <ul class="socials" id="socialList"></ul>
             </div>
@@ -617,38 +617,38 @@
         <div class="col col--side">
           <section class="panel">
             <div class="panel__head">
-              <h2>WHAT TO SAY / 可以聊</h2>
-              <span class="panel__hint">YES</span>
+              <h2 data-ui="contact.p2.h1" data-ui-group="联系页 · 可以聊">WHAT TO SAY / 可以聊</h2>
+              <span class="panel__hint" data-ui="contact.p2.k1" data-ui-group="联系页 · 可以聊">YES</span>
             </div>
             <div class="panel__body">
               <ul class="tips">
-                <li>前端 / 界面 / 像素字体相关的问题，尽量答。</li>
-                <li>开源项目的小 bug、文档错误，直接发 issue 更快。</li>
-                <li>想用我的东西做个什么东西，说一声就行。</li>
-                <li>单纯想说「这个界面挺怪的」，也收。</li>
+                <li data-ui="contact.p2.l1" data-ui-group="联系页 · 可以聊">前端 / 界面 / 像素字体相关的问题，尽量答。</li>
+                <li data-ui="contact.p2.l2" data-ui-group="联系页 · 可以聊">开源项目的小 bug、文档错误，直接发 issue 更快。</li>
+                <li data-ui="contact.p2.l3" data-ui-group="联系页 · 可以聊">想用我的东西做个什么东西，说一声就行。</li>
+                <li data-ui="contact.p2.l4" data-ui-group="联系页 · 可以聊">单纯想说「这个界面挺怪的」，也收。</li>
               </ul>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel__head">
-              <h2>WHAT NOT / 请别发</h2>
-              <span class="panel__hint">NO</span>
+              <h2 data-ui="contact.p3.h1" data-ui-group="联系页 · 请别发">WHAT NOT / 请别发</h2>
+              <span class="panel__hint" data-ui="contact.p3.k1" data-ui-group="联系页 · 请别发">NO</span>
             </div>
             <div class="panel__body">
               <ul class="tips tips--no">
-                <li>「帮我免费做个网站，很简单」。</li>
-                <li>SEO 外链、软文、课程推广、招聘群发。</li>
-                <li>要微信号再聊三天的商务流程。</li>
+                <li data-ui="contact.p3.l1" data-ui-group="联系页 · 请别发">「帮我免费做个网站，很简单」。</li>
+                <li data-ui="contact.p3.l2" data-ui-group="联系页 · 请别发">SEO 外链、软文、课程推广、招聘群发。</li>
+                <li data-ui="contact.p3.l3" data-ui-group="联系页 · 请别发">要微信号再聊三天的商务流程。</li>
               </ul>
-              <p class="prose prose--small prose--muted">不回不是没礼貌，是邮箱里这类太多了。</p>
+              <p class="prose prose--small prose--muted" data-ui="contact.p3.p1" data-ui-group="联系页 · 请别发">不回不是没礼貌，是邮箱里这类太多了。</p>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel__head">
-              <h2>TIME / 时区</h2>
-              <span class="panel__hint">GMT+8</span>
+              <h2 data-ui="contact.p4.h1" data-ui-group="联系页 · 时区">TIME / 时区</h2>
+              <span class="panel__hint" data-ui="contact.p4.k1" data-ui-group="联系页 · 时区">GMT+8</span>
             </div>
             <div class="panel__body">
               <div class="clock" id="clock2">--:--:--</div>
@@ -664,12 +664,12 @@
     <!-- ================= 状态栏 ================= -->
     <footer class="statusbar">
       <span>SIDE A — LOCAL</span>
-      <span class="statusbar__mid" id="statusMid">手写 HTML / CSS / JS · 无追踪</span>
+      <span class="statusbar__mid" id="statusMid" data-ui="global.statusbar" data-ui-group="状态栏">手写 HTML / CSS / JS · 无追踪</span>
       <span id="statusClock">--:--</span>
     </footer>
   </div>
 
-  <p class="colophon" id="colophon">© 2026 sy1lo · 手写代码 · 无追踪</p>
+  <p class="colophon" id="colophon" data-ui="global.colophon" data-ui-group="页脚">© 2026 sy1lo · 手写代码 · 无追踪</p>
 </div>
 
 <!-- ================= 图片灯箱 ================= -->
@@ -688,7 +688,7 @@
 </div>
 
 <noscript>
-  <p class="noscript">这个主页用 JavaScript 渲染列表和播放器。开启后再来看，或者直接发邮件给我。</p>
+  <p class="noscript" data-ui="global.noscript" data-ui-group="页脚">这个主页用 JavaScript 渲染列表和播放器。开启后再来看，或者直接发邮件给我。</p>
 </noscript>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

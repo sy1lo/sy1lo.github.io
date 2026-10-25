@@ -724,8 +724,9 @@
     wallItems = list;
     $("#photoEmpty").hidden = list.length > 0;
     $("#photoCount").textContent = list.length + " PHOTOS";
-    // 页面不可见时算不出宽度，等显示后再排（见 afterShow）
-    if (!wallIsVisible()) return;
+    wall.dataset.dirty = "1";
+    /* 立刻试一次；算不出宽度也没关系，afterShow / ResizeObserver / 图片 load
+       都会再触发。不再因为「不可见」直接放弃。 */
     layoutWall();
   }
 
@@ -735,18 +736,35 @@
     return !!pageEl && !pageEl.hidden && wall && wall.clientWidth > 0;
   }
 
+  /* 容器宽度变化时重排（兜底：不依赖调用时机） */
+  let wallRO = null;
+  function watchWall() {
+    if (wallRO || !wall || !window.ResizeObserver) return;
+    wallRO = new ResizeObserver(() => {
+      if (wall.clientWidth > 0 && wall.dataset.dirty === "1") {
+        wall.dataset.dirty = "0";
+        layoutWall();
+      }
+    });
+    wallRO.observe(wall);
+  }
+
   /* 等高排布：先按比例把图片切成行，每行一个 flex 容器，行高固定 */
   function layoutWall() {
     if (!wall) return;
+    watchWall();
+
     const photos = currentPhotos();
     const containerW = wall.clientWidth;
 
-    /* 容器还没宽度（页面隐藏 / 刚插入 DOM / 正在动画），
-       等下一帧再试，最多重试 8 帧，避免死循环 */
+    /* 容器还没宽度（页面隐藏 / 刚插入 DOM / 正在动画）：
+       同时用 rAF 和 setTimeout 重试，保证后台标签（rAF 被节流）也能恢复 */
     if (containerW <= 0) {
+      wall.dataset.dirty = "1";
       if (wallRetry < 8) {
         wallRetry += 1;
         requestAnimationFrame(layoutWall);
+        setTimeout(layoutWall, 50 * wallRetry);
       }
       return;
     }
@@ -825,11 +843,23 @@
         b.innerHTML =
           `<img src="${esc(ph.src)}" alt="${esc(ph.caption)}" width="${ph.w}" height="${ph.h}" decoding="async">
            <span class="wall-item__cap">${esc(ph.caption)}</span>`;
+        /* 图片解码完可能改变行内高度，触发一次重排（仅首次） */
+        const im = b.querySelector("img");
+        if (im) {
+          im.addEventListener("load", () => {
+            if (wall.dataset.dirty === "1" && wall.clientWidth > 0) {
+              wall.dataset.dirty = "0";
+              layoutWall();
+            }
+          }, { once: true });
+        }
         b.addEventListener("click", () => openLightbox(it.i));
         rowEl.appendChild(b);
-      });      wall.appendChild(rowEl);
+      });
+      wall.appendChild(rowEl);
     });
 
+    wall.dataset.dirty = "0";
     wallItems = photos;
   }
 
@@ -1178,8 +1208,39 @@
   });
 
   /* ============================================================
+     界面文案：把 DATA.ui 里的值套用到带 data-ui 的节点上
+     - 没有 ui 数据 → 保持 HTML 原文（不会白屏）
+     - ui 里有该 key → 用新值覆盖
+     ============================================================ */
+  function applyUI() {
+    const ui = (DATA && DATA.ui) || {};
+    let applied = 0;
+
+    document.querySelectorAll("[data-ui]").forEach((node) => {
+      const key = node.getAttribute("data-ui");
+      if (!key) return;
+      const val = ui[key];
+      if (typeof val !== "string" || val === "") return;
+
+      /* 只替换纯文本节点，避免破坏内部结构（如 <b id> 占位） */
+      const hasChildEl = node.children.length > 0;
+      if (hasChildEl) {
+        /* 有子元素时不覆盖，防止把动态 id 内容冲掉 */
+        return;
+      }
+      if (node.textContent !== val) {
+        node.textContent = val;
+        applied++;
+      }
+    });
+
+    return applied;
+  }
+
+  /* ============================================================
      初始化
      ============================================================ */
+  applyUI();
   renderShelf();
   loadTrack(0, false);
   syncMode();
@@ -1203,11 +1264,16 @@
     p.hidden = !on;
   });
   $("#winTitle").textContent = SITE.name + " — " + TITLES[startPage];
+
+  /* 收尾：rAF 在前台更快，setTimeout 在后台标签（rAF 被节流）也能跑，
+     两者都调一次，afterShow 内部对重复调用是安全的 */
   requestAnimationFrame(() => {
     const active = tabs.find((t) => t.classList.contains("is-active"));
     if (active) moveInk(active, false);
-    afterShow(startPage);
+    requestAnimationFrame(() => afterShow(startPage));
   });
+  setTimeout(() => afterShow(startPage), 60);
+  window.addEventListener("load", () => afterShow(startPage), { once: true });
 
   window.addEventListener("hashchange", () => {
     const p = location.hash.slice(1);
