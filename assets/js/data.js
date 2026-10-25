@@ -183,11 +183,18 @@ const DATA = {
   ],
   "photos": [
     {
-      "src": "assets/photos/photo01.jpg",
-      "w": 1372,
-      "h": 870,
+      "src": "assets/photos/MH.jpg",
+      "w": 850,
+      "h": 604,
       "tag": "插画",
-      "caption": "miku"
+      "caption": "MH"
+    },
+    {
+      "src": "assets/photos/HG.jpg",
+      "w": 1119,
+      "h": 1317,
+      "tag": "插画",
+      "caption": "..."
     },
     {
       "src": "assets/photos/photo02.jpg",
@@ -195,6 +202,20 @@ const DATA = {
       "h": 2340,
       "tag": "插画",
       "caption": "上伊那ぼたん"
+    },
+    {
+      "src": "assets/photos/photo05.jpg",
+      "w": 1400,
+      "h": 788,
+      "tag": "插画",
+      "caption": "辉夜姬"
+    },
+    {
+      "src": "assets/photos/dm.jpg",
+      "w": 4096,
+      "h": 3072,
+      "tag": "照片",
+      "caption": "呆猫"
     },
     {
       "src": "assets/photos/photo03.jpg",
@@ -209,13 +230,6 @@ const DATA = {
       "h": 1506,
       "tag": "插画",
       "caption": "雨月忍"
-    },
-    {
-      "src": "assets/photos/photo05.jpg",
-      "w": 1400,
-      "h": 788,
-      "tag": "截图",
-      "caption": "辉夜姬"
     },
     {
       "src": "assets/photos/photo06.jpg",
@@ -237,6 +251,48 @@ const DATA = {
       "h": 876,
       "tag": "截图",
       "caption": "MHWI03"
+    },
+    {
+      "src": "assets/photos/Imoto_Life.jpg",
+      "w": 1892,
+      "h": 2800,
+      "tag": "插画",
+      "caption": "Imoto Life"
+    },
+    {
+      "src": "assets/photos/ren.jpg",
+      "w": 871,
+      "h": 1095,
+      "tag": "插画",
+      "caption": "忍"
+    },
+    {
+      "src": "assets/photos/ls.jpeg",
+      "w": 1341,
+      "h": 1221,
+      "tag": "插画",
+      "caption": "恋死"
+    },
+    {
+      "src": "assets/photos/adachi.jpg",
+      "w": 1868,
+      "h": 2108,
+      "tag": "插画",
+      "caption": "安岛"
+    },
+    {
+      "src": "assets/photos/O.jpg",
+      "w": 2000,
+      "h": 3423,
+      "tag": "插画",
+      "caption": "O"
+    },
+    {
+      "src": "assets/photos/illust_80096226_20261012_103233.png",
+      "w": 1200,
+      "h": 900,
+      "tag": "插画",
+      "caption": "illust"
     }
   ],
   "friends": [
