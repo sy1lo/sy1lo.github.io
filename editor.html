@@ -126,6 +126,17 @@
     font-family: var(--mono); font-size: 11px; color: var(--faint);
   }
   .card > .card-head .grow { flex: 1 1 auto; }
+
+  /* 上移 / 下移按钮 */
+  .movebtn {
+    padding: 2px 7px;
+    font-size: 13px;
+    line-height: 1.3;
+    font-family: var(--mono);
+    min-width: 26px;
+  }
+  .movebtn:disabled { opacity: .3; cursor: not-allowed; }
+  .movebtn:not(:disabled):hover { background: #e6e9ff; border-color: var(--blue); color: var(--blue); }
   .card-body { padding: 10px; display: flex; flex-direction: column; gap: 9px; }
 
   .field { display: flex; flex-direction: column; gap: 3px; }
@@ -170,6 +181,11 @@
     width: 92px; height: 62px; object-fit: cover;
     border: 1px solid var(--line); border-radius: 3px;
     background: #eee;
+  }
+  .thumb--miss {
+    display: grid; place-items: center;
+    font-size: 10.5px; color: var(--faint);
+    background: repeating-linear-gradient(45deg, #f5f2e8 0 6px, #eee9dc 6px 12px);
   }
   .photo-head { display: flex; gap: 10px; align-items: flex-start; }
   .photo-head .meta { flex: 1 1 auto; min-width: 0; }
@@ -610,6 +626,24 @@
     const head = el("div", "card-head");
     if (idx != null) head.appendChild(el("span", "idx", String(idx).padStart(2, "0")));
     head.appendChild(el("span", "grow", title));
+
+    /* 顺序调整：上移 / 下移 */
+    if (opts.onMove) {
+      const mk = (label, dir, tip, disabled) => {
+        const b = el("button", "movebtn", label);
+        b.type = "button";
+        b.title = tip;
+        b.disabled = !!disabled;
+        b.addEventListener("click", () => {
+          opts.onMove(dir);
+          markDirty();
+        });
+        return b;
+      };
+      head.appendChild(mk("↑", -1, "上移一位", opts.isFirst));
+      head.appendChild(mk("↓", 1, "下移一位", opts.isLast));
+    }
+
     if (opts.onDelete) {
       const d = el("button", null, "删除");
       d.type = "button";
@@ -627,6 +661,14 @@
     c.appendChild(body);
     bodyBuilder(body);
     return c;
+  }
+
+  /* 通用：交换数组两项并重渲染 */
+  function moveItem(arr, from, to, rerender) {
+    if (to < 0 || to >= arr.length) return;
+    const [item] = arr.splice(from, 1);
+    arr.splice(to, 0, item);
+    rerender();
   }
 
   /* ============================================================
@@ -775,9 +817,15 @@
       const c = card(p.caption || "(未命名)", i + 1, (body) => {
         const head = el("div", "photo-head");
         const img = el("img", "thumb");
-        img.src = "../" + p.src;
-        img.alt = "";
+        /* editor.html 与 index.html 同级，直接用相对路径即可 */
+        img.src = p.src;
+        img.alt = p.caption || "";
         img.loading = "lazy";
+        img.addEventListener("error", () => {
+          img.style.display = "none";
+          const ph = el("div", "thumb thumb--miss", "找不到图片");
+          head.insertBefore(ph, head.firstChild);
+        }, { once: true });
         head.appendChild(img);
 
         const meta = el("div", "meta");
@@ -795,6 +843,9 @@
         body.appendChild(el("div", "hintline",
           `尺寸 ${p.w}×${p.h}（自动读取，一般不用改）`));
       }, {
+        onMove: (dir) => moveItem(DATA.photos, i, i + dir, render),
+        isFirst: i === 0,
+        isLast: i === DATA.photos.length - 1,
         onDelete: () => {
           DATA.photos.splice(i, 1);
           render();
@@ -911,6 +962,9 @@
 
         body.appendChild(listField("听感备注（每行一条）", t.note, (arr) => (t.note = arr), { key: "tracks[].note" }));
       }, {
+        onMove: (dir) => moveItem(DATA.tracks, i, i + dir, render),
+        isFirst: i === 0,
+        isLast: i === DATA.tracks.length - 1,
         onDelete: () => { DATA.tracks.splice(i, 1); render(); }
       });
       main.appendChild(c);
@@ -1058,6 +1112,9 @@
           p.tags = v.split(",").map((s) => s.trim()).filter(Boolean);
         }, { key: "projects[].tags" }));
       }, {
+        onMove: (dir) => moveItem(DATA.projects, i, i + dir, render),
+        isFirst: i === 0,
+        isLast: i === DATA.projects.length - 1,
         onDelete: () => { DATA.projects.splice(i, 1); render(); }
       });
       main.appendChild(c);
@@ -1093,6 +1150,9 @@
           f.tags = v.split(",").map((s) => s.trim()).filter(Boolean);
         }, { key: "friends[].tags" }));
       }, {
+        onMove: (dir) => moveItem(DATA.friends, i, i + dir, render),
+        isFirst: i === 0,
+        isLast: i === DATA.friends.length - 1,
         onDelete: () => { DATA.friends.splice(i, 1); render(); }
       });
       main.appendChild(c);
@@ -1128,6 +1188,9 @@
         body.appendChild(field("显示值", s.handle, (v) => (s.handle = v), { key: "socials[].handle" }));
         body.appendChild(field("链接", s.url, (v) => (s.url = v), { key: "socials[].url" }));
       }, {
+        onMove: (dir) => moveItem(DATA.socials, i, i + dir, render),
+        isFirst: i === 0,
+        isLast: i === DATA.socials.length - 1,
         onDelete: () => { DATA.socials.splice(i, 1); render(); }
       });
       main.appendChild(c);
