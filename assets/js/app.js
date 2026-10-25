@@ -1058,8 +1058,16 @@
       }
     }
 
-    if (DATA.steam && DATA.steam.refreshHint) {
-      $("#steamHint").textContent = "更新频率：" + DATA.steam.refreshHint;
+    /* 更新频率文案：优先用「界面文案」里的自定义内容；
+       没有自定义时才用 steam.refreshHint 自动拼 */
+    const hintEl = $("#steamHint");
+    if (hintEl) {
+      const custom = (DATA.ui && DATA.ui["feed.p3.p1"]) || "";
+      const fallback = DATA.steam && DATA.steam.refreshHint
+        ? "更新频率：" + DATA.steam.refreshHint
+        : "";
+      const next = custom || fallback;
+      if (next && hintEl.textContent !== next) hintEl.textContent = next;
     }
   }
 
@@ -1254,9 +1262,29 @@
   loadTrack(0, false);
   syncMode();
 
-  $("#statusMid").textContent = SITE.url.replace(/^https?:\/\//, "").replace(/\/$/, "") +
-    " · 手写 HTML / CSS / JS · 无追踪";
-  $("#colophon").textContent = `© ${new Date().getFullYear()} ${SITE.name} · 手写代码 · 无追踪`;
+  /* 状态栏 / 页脚：支持 {url} {year} {name} 占位符，没有自定义时自动生成 */
+  const uiMap = (DATA && DATA.ui) || {};
+
+  const fill = (tpl) =>
+    tpl
+      .replace(/\{url\}/g, SITE.url.replace(/^https?:\/\//, "").replace(/\/$/, ""))
+      .replace(/\{year\}/g, String(new Date().getFullYear()))
+      .replace(/\{name\}/g, SITE.name);
+
+  const statusMidEl = $("#statusMid");
+  if (statusMidEl) {
+    const auto = SITE.url.replace(/^https?:\/\//, "").replace(/\/$/, "") +
+      " · 手写 HTML / CSS / JS · 无追踪";
+    const next = uiMap["global.statusbar"] ? fill(uiMap["global.statusbar"]) : auto;
+    if (statusMidEl.textContent !== next) statusMidEl.textContent = next;
+  }
+
+  const colophonEl = $("#colophon");
+  if (colophonEl) {
+    const auto = `© ${new Date().getFullYear()} ${SITE.name} · 手写代码 · 无追踪`;
+    const next = uiMap["global.colophon"] ? fill(uiMap["global.colophon"]) : auto;
+    if (colophonEl.textContent !== next) colophonEl.textContent = next;
+  }
 
   const initial = location.hash.slice(1);
   const startPage = tabs.some((t) => t.dataset.page === initial) ? initial : "home";
