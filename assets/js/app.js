@@ -420,6 +420,10 @@
     });
     moveInk(tab, true);
 
+    // 先瞬时回到顶部再播动画：否则「长页面滚到一半切到短页面」时，
+    // 平滑滚动会和淡出动画叠在一起，观感像卡住
+    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: "auto" });
+
     const outgoing = pages.find((p) => p.classList.contains("is-active"));
     const incoming = pages.find((p) => p.dataset.page === page);
     if (!incoming) return;
@@ -439,6 +443,8 @@
           switching = false;
         });
       });
+      // 页面此刻才真正可见，依赖布局的渲染必须放在这之后
+      afterShow(page);
     };
 
     if (reduceMotion || !outgoing || outgoing === incoming || switching) {
@@ -461,11 +467,15 @@
     currentPage = page;
     $("#winTitle").textContent = SITE.name + " — " + TITLES[page];
     if (push && location.hash.slice(1) !== page) history.replaceState(null, "", "#" + page);
+  }
+
+  /* 页面切换后要做的收尾：必须等页面真的显示（hidden=false）再跑，
+     否则 clientWidth 为 0，图片墙算不出行 */
+  function afterShow(page) {
     if (page === "home") paintProgress();
     if (page === "contact") tickClock();
-    if (page === "gallery") requestAnimationFrame(layoutWall);
     if (page === "feed") renderSteam();
-    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    if (page === "gallery") layoutWall();
   }
 
   tabbar.addEventListener("click", (e) => {
@@ -493,10 +503,14 @@
     go(g.dataset.goto);
   });
 
+  let resizeTimer = null;
   window.addEventListener("resize", () => {
     const active = tabs.find((t) => t.classList.contains("is-active"));
     if (active) moveInk(active, false);
-    layoutWall();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (wallIsVisible()) layoutWall();
+    }, 80);
   });
 
   /* ============================================================
@@ -678,6 +692,7 @@
   const photoTags = $("#photoTags");
   let photoTag = "all";
   let wallItems = [];
+  let wallRetry = 0;
 
   const ALL_PHOTO_TAGS = ["all"].concat([...new Set(PHOTOS.map((p) => p.tag))]);
 
@@ -709,7 +724,15 @@
     wallItems = list;
     $("#photoEmpty").hidden = list.length > 0;
     $("#photoCount").textContent = list.length + " PHOTOS";
+    // 页面不可见时算不出宽度，等显示后再排（见 afterShow）
+    if (!wallIsVisible()) return;
     layoutWall();
+  }
+
+  /* 相册页是否处于可见状态 */
+  function wallIsVisible() {
+    const pageEl = $("#page-gallery");
+    return !!pageEl && !pageEl.hidden && wall && wall.clientWidth > 0;
   }
 
   /* 等高排布：先按比例把图片切成行，每行一个 flex 容器，行高固定 */
@@ -717,7 +740,17 @@
     if (!wall) return;
     const photos = currentPhotos();
     const containerW = wall.clientWidth;
-    if (containerW <= 0) return;
+
+    /* 容器还没宽度（页面隐藏 / 刚插入 DOM / 正在动画），
+       等下一帧再试，最多重试 8 帧，避免死循环 */
+    if (containerW <= 0) {
+      if (wallRetry < 8) {
+        wallRetry += 1;
+        requestAnimationFrame(layoutWall);
+      }
+      return;
+    }
+    wallRetry = 0;
 
     const gap = 6;
     // 目标行高：桌面约 200px，窄屏自动收小
@@ -1173,7 +1206,7 @@
   requestAnimationFrame(() => {
     const active = tabs.find((t) => t.classList.contains("is-active"));
     if (active) moveInk(active, false);
-    layoutWall();
+    afterShow(startPage);
   });
 
   window.addEventListener("hashchange", () => {

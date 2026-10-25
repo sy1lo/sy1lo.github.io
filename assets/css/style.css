@@ -78,7 +78,16 @@
 
 /* ---------- 2. 基础 ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  /* 始终预留滚动条位置：有滚动条的页面切到没滚动条的页面时，
+     内容区不会因为滚动条消失而左右跳动 */
+  scrollbar-gutter: stable;
+}
+/* 老版 Safari 不支持 scrollbar-gutter，退化成强制显示滚动条轨道 */
+@supports not (scrollbar-gutter: stable) {
+  html { overflow-y: scroll; }
+}
 
 body {
   margin: 0;
