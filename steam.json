@@ -1,8 +1,120 @@
-﻿{
-  "updatedAt": null,
-  "profile": null,
-  "stats": null,
-  "recent": [],
-  "topGames": [],
+{
+  "updatedAt": "2026-10-25T07:57:00.551Z",
+  "profile": {
+    "name": "syllogism48",
+    "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
+    "profileUrl": "https://steamcommunity.com/profiles/76561198685773960/",
+    "state": 0,
+    "stateText": "离线",
+    "inGame": null,
+    "gameId": null,
+    "country": null,
+    "createdAt": "2026-06-17T06:59:49.000Z"
+  },
+  "stats": {
+    "totalGames": 16,
+    "totalMinutes": 14276,
+    "totalHours": 237.9
+  },
+  "recent": [
+    {
+      "appid": 582010,
+      "name": "Monster Hunter: World",
+      "minutes": 2139,
+      "minutesTotal": 3625,
+      "human": "35.6 小时",
+      "cover": "assets/steam/582010.jpg"
+    },
+    {
+      "appid": 504230,
+      "name": "Celeste",
+      "minutes": 70,
+      "minutesTotal": 951,
+      "human": "1.2 小时",
+      "cover": "assets/steam/504230.jpg"
+    },
+    {
+      "appid": 1238840,
+      "name": "Battlefield™ 1",
+      "minutes": 50,
+      "minutesTotal": 4140,
+      "human": "50 分钟",
+      "cover": "assets/steam/1238840.jpg"
+    },
+    {
+      "appid": 1449850,
+      "name": "Yu-Gi-Oh!  Master Duel",
+      "minutes": 9,
+      "minutesTotal": 1031,
+      "human": "9 分钟",
+      "cover": "assets/steam/1449850.jpg"
+    },
+    {
+      "appid": 431960,
+      "name": "Wallpaper Engine",
+      "minutes": 5,
+      "minutesTotal": 48,
+      "human": "5 分钟",
+      "cover": "assets/steam/431960.jpg"
+    },
+    {
+      "appid": 105600,
+      "name": "Terraria",
+      "minutes": 4,
+      "minutesTotal": 1356,
+      "human": "4 分钟",
+      "cover": "assets/steam/105600.jpg"
+    }
+  ],
+  "topGames": [
+    {
+      "appid": 1238840,
+      "name": "Battlefield™ 1",
+      "minutes": 4140,
+      "hours": 69,
+      "human": "69.0 小时",
+      "cover": "assets/steam/1238840.jpg"
+    },
+    {
+      "appid": 582010,
+      "name": "Monster Hunter: World",
+      "minutes": 3625,
+      "hours": 60.4,
+      "human": "60.4 小时",
+      "cover": "assets/steam/582010.jpg"
+    },
+    {
+      "appid": 105600,
+      "name": "Terraria",
+      "minutes": 1356,
+      "hours": 22.6,
+      "human": "22.6 小时",
+      "cover": "assets/steam/105600.jpg"
+    },
+    {
+      "appid": 1449850,
+      "name": "Yu-Gi-Oh!  Master Duel",
+      "minutes": 1031,
+      "hours": 17.2,
+      "human": "17.2 小时",
+      "cover": "assets/steam/1449850.jpg"
+    },
+    {
+      "appid": 504230,
+      "name": "Celeste",
+      "minutes": 951,
+      "hours": 15.8,
+      "human": "15.8 小时",
+      "cover": "assets/steam/504230.jpg"
+    },
+    {
+      "appid": 311690,
+      "name": "Enter the Gungeon",
+      "minutes": 932,
+      "hours": 15.5,
+      "human": "15.5 小时",
+      "cover": "assets/steam/311690.jpg"
+    }
+  ],
   "error": null
 }
