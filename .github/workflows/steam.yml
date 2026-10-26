@@ -5,8 +5,8 @@ name: Update Steam data
 
 on:
   schedule:
-    # 每天两次：UTC 22:00 / 10:00 = 北京时间 06:00 / 18:00
-    - cron: "0 22,10 * * *"
+    # 每 30 分钟一次（UTC 时间；cron 用的是 UTC，半小时粒度不受时区影响）
+    - cron: "*/30 * * * *"
   workflow_dispatch: # 也可以在 Actions 页面手动点一次
 
 permissions:
@@ -37,5 +37,7 @@ jobs:
             echo "no changes"
           else
             git commit -m "chore: update steam data"
+            # 每 30 分钟一次，可能与其它提交撞车；先 rebase 再推
+            git pull --rebase --autostash origin main || true
             git push
           fi

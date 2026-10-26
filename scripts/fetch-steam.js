@@ -169,6 +169,32 @@ async function main() {
     });
   }
 
+  /* ---- 写文件 ----
+     每 30 分钟跑一次，如果数据没实质变化就不写，
+     避免每天 48 次无意义的提交把 git 历史淹没。
+     updatedAt 每次都不同，比对时先去掉它。 */
+  const strip = (o) => {
+    const c = JSON.parse(JSON.stringify(o));
+    delete c.updatedAt;
+    return JSON.stringify(c);
+  };
+
+  let prev = null;
+  if (fs.existsSync(OUT)) {
+    try { prev = JSON.parse(fs.readFileSync(OUT, "utf8")); } catch { prev = null; }
+  }
+
+  const unchanged = prev && strip(prev) === strip(out);
+
+  if (unchanged) {
+    console.log("数据无变化，跳过写入（避免空提交）");
+    console.log(
+      `profile=${out.profile?.name || "-"} games=${out.stats?.totalGames ?? "-"} ` +
+      `hours=${out.stats?.totalHours ?? "-"} recent=${out.recent.length} top=${out.topGames.length}`
+    );
+    return;
+  }
+
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + "\n", "utf8");
   console.log(`wrote ${OUT}`);
   console.log(

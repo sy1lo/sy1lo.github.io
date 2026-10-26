@@ -341,14 +341,14 @@ const DATA = {
   ],
   "steam": {
     "profileUrl": "https://steamcommunity.com/id/YOUR_STEAM_VANITY",
-    "refreshHint": "每天 06:00 / 18:00（北京时间）自动更新"
+    "refreshHint": "每 30 分钟自动更新"
   },
   "ui": {
     "feed.p2.h1": "MOST PLAYED / 时长榜",
     "feed.p2.k1": "ALL TIME",
     "feed.p3.h1": "WELCOME / 欢迎",
     "feed.p3.k1": "HELLO",
-    "feed.p3.p1": "更新频率：每天 06:00 / 18:00（北京时间）自动更新",
+    "feed.p3.p1": "更新频率：每 30 分钟自动更新",
     "feed.p3.l1": "欢迎加好友！",
     "feed.p3.l2": "一起打游戏！",
     "feed.p3.l3": "怪物猎人！",

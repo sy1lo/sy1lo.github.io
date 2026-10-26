@@ -81,7 +81,7 @@ Firefox / Safari 不支持目录授权。这时点 **导出 JSON** 下载 `data.
 数据流：
 
 ```
-GitHub Actions (cron 每天两次)
+GitHub Actions (cron 每 30 分钟)
    └→ scripts/fetch-steam.js
         ├→ Steam Web API（3 个公开接口）
         ├→ 封面图下载到 assets/steam/
@@ -102,7 +102,7 @@ GitHub Actions (cron 每天两次)
 5. **手动跑一次**：https://github.com/sy1lo/sy1lo.github.io/actions/workflows/steam.yml → Run workflow
 6. **改主页地址**：编辑器「基本信息 → Steam 配置 → Steam 主页地址」
 
-之后每天北京时间 06:00 / 18:00 自动更新。
+之后每 30 分钟自动更新一次。
 
 ---
 
