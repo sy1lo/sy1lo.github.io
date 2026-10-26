@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-26T14:09:58.359Z",
+  "updatedAt": "2026-10-26T20:08:05.116Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -13,24 +13,24 @@
   },
   "stats": {
     "totalGames": 16,
-    "totalMinutes": 14360,
-    "totalHours": 239.3
+    "totalMinutes": 14419,
+    "totalHours": 240.3
   },
   "recent": [
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 1999,
-      "minutesTotal": 3705,
-      "human": "33.3 小时",
+      "minutes": 2007,
+      "minutesTotal": 3730,
+      "human": "33.5 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
       "appid": 504230,
       "name": "Celeste",
-      "minutes": 70,
-      "minutesTotal": 951,
-      "human": "1.2 小时",
+      "minutes": 104,
+      "minutesTotal": 985,
+      "human": "1.7 小时",
       "cover": "assets/steam/504230.jpg"
     },
     {
@@ -78,9 +78,9 @@
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 3705,
-      "hours": 61.8,
-      "human": "61.8 小时",
+      "minutes": 3730,
+      "hours": 62.2,
+      "human": "62.2 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
@@ -102,9 +102,9 @@
     {
       "appid": 504230,
       "name": "Celeste",
-      "minutes": 951,
-      "hours": 15.8,
-      "human": "15.8 小时",
+      "minutes": 985,
+      "hours": 16.4,
+      "human": "16.4 小时",
       "cover": "assets/steam/504230.jpg"
     },
     {
