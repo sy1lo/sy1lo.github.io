@@ -5,8 +5,10 @@ name: Update Steam data
 
 on:
   schedule:
-    # 每 30 分钟一次（UTC 时间；cron 用的是 UTC，半小时粒度不受时区影响）
-    - cron: "*/30 * * * *"
+    # 每 30 分钟一次，但避开整点/半点。
+    # GitHub 官方文档：整点是高负载时段，定时任务可能被延迟甚至丢弃，
+    # 建议安排在非整点时刻。7 分和 37 分是常用选择。
+    - cron: "7,37 * * * *"
   workflow_dispatch: # 也可以在 Actions 页面手动点一次
 
 permissions:

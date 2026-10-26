@@ -170,9 +170,11 @@ async function main() {
   }
 
   /* ---- 写文件 ----
-     每 30 分钟跑一次，如果数据没实质变化就不写，
-     避免每天 48 次无意义的提交把 git 历史淹没。
-     updatedAt 每次都不同，比对时先去掉它。 */
+     策略：数据有实质变化 → 立刻写；数据没变但时间戳太旧 → 也写一次（心跳）。
+     目的：既避免每天 48 次空提交淹没 git 历史，又让时间戳不会无限变旧。
+     比对时忽略 updatedAt（它每次都不同）。 */
+  const HEARTBEAT_MS = 6 * 3600 * 1000; // 6 小时
+
   const strip = (o) => {
     const c = JSON.parse(JSON.stringify(o));
     delete c.updatedAt;
@@ -185,22 +187,27 @@ async function main() {
   }
 
   const unchanged = prev && strip(prev) === strip(out);
+  const lastAt = prev && prev.updatedAt ? new Date(prev.updatedAt).getTime() : 0;
+  const stale = !lastAt || Date.now() - lastAt > HEARTBEAT_MS;
 
-  if (unchanged) {
-    console.log("数据无变化，跳过写入（避免空提交）");
-    console.log(
-      `profile=${out.profile?.name || "-"} games=${out.stats?.totalGames ?? "-"} ` +
-      `hours=${out.stats?.totalHours ?? "-"} recent=${out.recent.length} top=${out.topGames.length}`
-    );
+  const summary =
+    `profile=${out.profile?.name || "-"} games=${out.stats?.totalGames ?? "-"} ` +
+    `hours=${out.stats?.totalHours ?? "-"} recent=${out.recent.length} top=${out.topGames.length}`;
+
+  if (unchanged && !stale) {
+    const ageH = ((Date.now() - lastAt) / 3600000).toFixed(1);
+    console.log(`数据无变化，时间戳仅 ${ageH} 小时（未超 6 小时），跳过写入`);
+    console.log(summary);
     return;
+  }
+
+  if (unchanged && stale) {
+    console.log("数据无变化，但时间戳已超过 6 小时，刷新一次（心跳）");
   }
 
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + "\n", "utf8");
   console.log(`wrote ${OUT}`);
-  console.log(
-    `profile=${out.profile?.name || "-"} games=${out.stats?.totalGames ?? "-"} ` +
-    `hours=${out.stats?.totalHours ?? "-"} recent=${out.recent.length} top=${out.topGames.length}`
-  );
+  console.log(summary);
   if (out.error) console.log("partial errors:", out.error);
 }
 
