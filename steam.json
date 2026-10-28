@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-28T00:27:54.987Z",
+  "updatedAt": "2026-10-28T06:14:55.036Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -13,8 +13,8 @@
   },
   "stats": {
     "totalGames": 16,
-    "totalMinutes": 14537,
-    "totalHours": 242.3
+    "totalMinutes": 14551,
+    "totalHours": 242.5
   },
   "recent": [
     {
@@ -40,6 +40,14 @@
       "minutesTotal": 4140,
       "human": "50 分钟",
       "cover": "assets/steam/1238840.jpg"
+    },
+    {
+      "appid": 262060,
+      "name": "Darkest Dungeon®",
+      "minutes": 13,
+      "minutesTotal": 328,
+      "human": "13 分钟",
+      "cover": "assets/steam/262060.jpg"
     },
     {
       "appid": 1449850,
