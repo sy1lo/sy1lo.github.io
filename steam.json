@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-28T19:05:09.402Z",
+  "updatedAt": "2026-10-29T02:48:31.025Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -20,9 +20,9 @@
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 1865,
+      "minutes": 1845,
       "minutesTotal": 3848,
-      "human": "31.1 小时",
+      "human": "30.8 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
