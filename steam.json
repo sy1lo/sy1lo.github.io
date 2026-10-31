@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-31T05:27:57.623Z",
+  "updatedAt": "2026-10-31T11:11:39.458Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -13,16 +13,16 @@
   },
   "stats": {
     "totalGames": 16,
-    "totalMinutes": 14607,
-    "totalHours": 243.4
+    "totalMinutes": 14670,
+    "totalHours": 244.5
   },
   "recent": [
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 1419,
-      "minutesTotal": 3904,
-      "human": "23.6 小时",
+      "minutes": 1303,
+      "minutesTotal": 3967,
+      "human": "21.7 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
@@ -78,9 +78,9 @@
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 3904,
-      "hours": 65.1,
-      "human": "65.1 小时",
+      "minutes": 3967,
+      "hours": 66.1,
+      "human": "66.1 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
