@@ -1,28 +1,28 @@
 {
-  "updatedAt": "2026-11-01T05:53:44.132Z",
+  "updatedAt": "2026-11-01T13:12:46.405Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
     "profileUrl": "https://steamcommunity.com/profiles/76561198685773960/",
-    "state": 1,
-    "stateText": "在线",
-    "inGame": "Monster Hunter: World",
-    "gameId": "582010",
+    "state": 0,
+    "stateText": "离线",
+    "inGame": null,
+    "gameId": null,
     "country": null,
     "createdAt": "2026-06-17T06:59:49.000Z"
   },
   "stats": {
     "totalGames": 16,
-    "totalMinutes": 14700,
-    "totalHours": 245
+    "totalMinutes": 14759,
+    "totalHours": 246
   },
   "recent": [
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 1253,
-      "minutesTotal": 3997,
-      "human": "20.9 小时",
+      "minutes": 1074,
+      "minutesTotal": 4056,
+      "human": "17.9 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
@@ -50,20 +50,20 @@
       "cover": "assets/steam/262060.jpg"
     },
     {
-      "appid": 431960,
-      "name": "Wallpaper Engine",
-      "minutes": 4,
-      "minutesTotal": 52,
-      "human": "4 分钟",
-      "cover": "assets/steam/431960.jpg"
-    },
-    {
       "appid": 105600,
       "name": "Terraria",
       "minutes": 4,
       "minutesTotal": 1356,
       "human": "4 分钟",
       "cover": "assets/steam/105600.jpg"
+    },
+    {
+      "appid": 431960,
+      "name": "Wallpaper Engine",
+      "minutes": 3,
+      "minutesTotal": 52,
+      "human": "3 分钟",
+      "cover": "assets/steam/431960.jpg"
     }
   ],
   "topGames": [
@@ -78,9 +78,9 @@
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 3997,
-      "hours": 66.6,
-      "human": "66.6 小时",
+      "minutes": 4056,
+      "hours": 67.6,
+      "human": "67.6 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
