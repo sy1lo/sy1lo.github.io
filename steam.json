@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-06T09:49:37.955Z",
+  "updatedAt": "2026-11-06T17:26:03.837Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -13,16 +13,16 @@
   },
   "stats": {
     "totalGames": 16,
-    "totalMinutes": 15465,
-    "totalHours": 257.8
+    "totalMinutes": 15573,
+    "totalHours": 259.6
   },
   "recent": [
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 1374,
-      "minutesTotal": 4762,
-      "human": "22.9 小时",
+      "minutes": 1482,
+      "minutesTotal": 4870,
+      "human": "24.7 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
@@ -50,14 +50,6 @@
       "cover": "assets/steam/262060.jpg"
     },
     {
-      "appid": 105600,
-      "name": "Terraria",
-      "minutes": 4,
-      "minutesTotal": 1356,
-      "human": "4 分钟",
-      "cover": "assets/steam/105600.jpg"
-    },
-    {
       "appid": 431960,
       "name": "Wallpaper Engine",
       "minutes": 3,
@@ -70,9 +62,9 @@
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 4762,
-      "hours": 79.4,
-      "human": "79.4 小时",
+      "minutes": 4870,
+      "hours": 81.2,
+      "human": "81.2 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
