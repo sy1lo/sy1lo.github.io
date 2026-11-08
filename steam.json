@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-11-08T05:53:01.489Z",
+  "updatedAt": "2026-11-08T13:15:37.347Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
     "profileUrl": "https://steamcommunity.com/profiles/76561198685773960/",
-    "state": 1,
-    "stateText": "在线",
+    "state": 0,
+    "stateText": "离线",
     "inGame": null,
     "gameId": null,
     "country": null,
