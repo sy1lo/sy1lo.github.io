@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-09T09:39:38.015Z",
+  "updatedAt": "2026-11-09T20:39:59.045Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -20,9 +20,9 @@
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 1495,
+      "minutes": 1421,
       "minutesTotal": 5151,
-      "human": "24.9 小时",
+      "human": "23.7 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
@@ -34,28 +34,12 @@
       "cover": "assets/steam/1238840.jpg"
     },
     {
-      "appid": 504230,
-      "name": "Celeste",
-      "minutes": 34,
-      "minutesTotal": 985,
-      "human": "34 分钟",
-      "cover": "assets/steam/504230.jpg"
-    },
-    {
       "appid": 262060,
       "name": "Darkest Dungeon®",
       "minutes": 13,
       "minutesTotal": 328,
       "human": "13 分钟",
       "cover": "assets/steam/262060.jpg"
-    },
-    {
-      "appid": 431960,
-      "name": "Wallpaper Engine",
-      "minutes": 3,
-      "minutesTotal": 52,
-      "human": "3 分钟",
-      "cover": "assets/steam/431960.jpg"
     }
   ],
   "topGames": [
