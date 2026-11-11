@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-10T19:39:56.549Z",
+  "updatedAt": "2026-11-11T07:09:01.461Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -40,14 +40,6 @@
       "minutesTotal": 1019,
       "human": "33 分钟",
       "cover": "assets/steam/504230.jpg"
-    },
-    {
-      "appid": 262060,
-      "name": "Darkest Dungeon®",
-      "minutes": 13,
-      "minutesTotal": 328,
-      "human": "13 分钟",
-      "cover": "assets/steam/262060.jpg"
     }
   ],
   "topGames": [
