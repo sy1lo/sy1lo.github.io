@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-11T07:09:01.461Z",
+  "updatedAt": "2026-11-11T15:35:42.210Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -13,8 +13,8 @@
   },
   "stats": {
     "totalGames": 16,
-    "totalMinutes": 16265,
-    "totalHours": 271.1
+    "totalMinutes": 16279,
+    "totalHours": 271.3
   },
   "recent": [
     {
@@ -40,6 +40,14 @@
       "minutesTotal": 1019,
       "human": "33 分钟",
       "cover": "assets/steam/504230.jpg"
+    },
+    {
+      "appid": 105600,
+      "name": "Terraria",
+      "minutes": 13,
+      "minutesTotal": 1370,
+      "human": "13 分钟",
+      "cover": "assets/steam/105600.jpg"
     }
   ],
   "topGames": [
@@ -62,9 +70,9 @@
     {
       "appid": 105600,
       "name": "Terraria",
-      "minutes": 1356,
-      "hours": 22.6,
-      "human": "22.6 小时",
+      "minutes": 1370,
+      "hours": 22.8,
+      "human": "22.8 小时",
       "cover": "assets/steam/105600.jpg"
     },
     {
