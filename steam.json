@@ -1,20 +1,20 @@
 {
-  "updatedAt": "2026-11-11T22:16:03.390Z",
+  "updatedAt": "2026-11-12T03:19:45.435Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
     "profileUrl": "https://steamcommunity.com/profiles/76561198685773960/",
-    "state": 0,
-    "stateText": "离线",
-    "inGame": null,
-    "gameId": null,
+    "state": 1,
+    "stateText": "在线",
+    "inGame": "Terraria",
+    "gameId": "105600",
     "country": null,
     "createdAt": "2026-06-17T06:59:49.000Z"
   },
   "stats": {
     "totalGames": 16,
-    "totalMinutes": 16279,
-    "totalHours": 271.3
+    "totalMinutes": 16303,
+    "totalHours": 271.7
   },
   "recent": [
     {
@@ -34,20 +34,20 @@
       "cover": "assets/steam/1238840.jpg"
     },
     {
+      "appid": 105600,
+      "name": "Terraria",
+      "minutes": 37,
+      "minutesTotal": 1394,
+      "human": "37 分钟",
+      "cover": "assets/steam/105600.jpg"
+    },
+    {
       "appid": 504230,
       "name": "Celeste",
       "minutes": 33,
       "minutesTotal": 1019,
       "human": "33 分钟",
       "cover": "assets/steam/504230.jpg"
-    },
-    {
-      "appid": 105600,
-      "name": "Terraria",
-      "minutes": 13,
-      "minutesTotal": 1370,
-      "human": "13 分钟",
-      "cover": "assets/steam/105600.jpg"
     }
   ],
   "topGames": [
@@ -70,9 +70,9 @@
     {
       "appid": 105600,
       "name": "Terraria",
-      "minutes": 1370,
-      "hours": 22.8,
-      "human": "22.8 小时",
+      "minutes": 1394,
+      "hours": 23.2,
+      "human": "23.2 小时",
       "cover": "assets/steam/105600.jpg"
     },
     {
