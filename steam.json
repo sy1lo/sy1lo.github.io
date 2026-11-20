@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T01:13:14.199Z",
+  "updatedAt": "2026-11-20T09:07:49.759Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -13,24 +13,24 @@
   },
   "stats": {
     "totalGames": 17,
-    "totalMinutes": 18620,
-    "totalHours": 310.3
+    "totalMinutes": 18627,
+    "totalHours": 310.4
   },
   "recent": [
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 2600,
+      "minutes": 2492,
       "minutesTotal": 7222,
-      "human": "43.3 小时",
+      "human": "41.5 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
       "appid": 105600,
       "name": "Terraria",
-      "minutes": 315,
-      "minutesTotal": 1672,
-      "human": "5.3 小时",
+      "minutes": 323,
+      "minutesTotal": 1679,
+      "human": "5.4 小时",
       "cover": "assets/steam/105600.jpg"
     },
     {
@@ -86,9 +86,9 @@
     {
       "appid": 105600,
       "name": "Terraria",
-      "minutes": 1672,
-      "hours": 27.9,
-      "human": "27.9 小时",
+      "minutes": 1679,
+      "hours": 28,
+      "human": "28.0 小时",
       "cover": "assets/steam/105600.jpg"
     },
     {
