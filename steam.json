@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T08:45:44.690Z",
+  "updatedAt": "2026-11-22T17:04:31.222Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -13,8 +13,8 @@
   },
   "stats": {
     "totalGames": 18,
-    "totalMinutes": 19199,
-    "totalHours": 320
+    "totalMinutes": 19389,
+    "totalHours": 323.1
   },
   "recent": [
     {
@@ -34,6 +34,14 @@
       "cover": "assets/steam/105600.jpg"
     },
     {
+      "appid": 1446780,
+      "name": "MONSTER HUNTER RISE",
+      "minutes": 302,
+      "minutesTotal": 364,
+      "human": "5.0 小时",
+      "cover": "assets/steam/1446780.jpg"
+    },
+    {
       "appid": 2868840,
       "name": "Slay the Spire 2",
       "minutes": 197,
@@ -48,14 +56,6 @@
       "minutesTotal": 4377,
       "human": "2.6 小时",
       "cover": "assets/steam/1238840.jpg"
-    },
-    {
-      "appid": 1446780,
-      "name": "MONSTER HUNTER RISE",
-      "minutes": 111,
-      "minutesTotal": 174,
-      "human": "1.9 小时",
-      "cover": "assets/steam/1446780.jpg"
     },
     {
       "appid": 4379380,
