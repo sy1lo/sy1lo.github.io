@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T01:13:31.582Z",
+  "updatedAt": "2026-11-22T08:45:44.690Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -13,16 +13,16 @@
   },
   "stats": {
     "totalGames": 18,
-    "totalMinutes": 19005,
-    "totalHours": 316.8
+    "totalMinutes": 19199,
+    "totalHours": 320
   },
   "recent": [
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 2359,
+      "minutes": 2320,
       "minutesTotal": 7472,
-      "human": "39.3 小时",
+      "human": "38.7 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
@@ -34,6 +34,14 @@
       "cover": "assets/steam/105600.jpg"
     },
     {
+      "appid": 2868840,
+      "name": "Slay the Spire 2",
+      "minutes": 197,
+      "minutesTotal": 401,
+      "human": "3.3 小时",
+      "cover": "assets/steam/2868840.jpg"
+    },
+    {
       "appid": 1238840,
       "name": "Battlefield™ 1",
       "minutes": 159,
@@ -42,12 +50,12 @@
       "cover": "assets/steam/1238840.jpg"
     },
     {
-      "appid": 2868840,
-      "name": "Slay the Spire 2",
-      "minutes": 115,
-      "minutesTotal": 319,
+      "appid": 1446780,
+      "name": "MONSTER HUNTER RISE",
+      "minutes": 111,
+      "minutesTotal": 174,
       "human": "1.9 小时",
-      "cover": "assets/steam/2868840.jpg"
+      "cover": "assets/steam/1446780.jpg"
     },
     {
       "appid": 4379380,
