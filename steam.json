@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T04:06:30.847Z",
+  "updatedAt": "2026-11-25T14:16:13.601Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
@@ -36,7 +36,7 @@
     {
       "appid": 105600,
       "name": "Terraria",
-      "minutes": 323,
+      "minutes": 322,
       "minutesTotal": 1679,
       "human": "5.4 小时",
       "cover": "assets/steam/105600.jpg"
