@@ -1,45 +1,37 @@
 {
-  "updatedAt": "2026-11-27T09:01:19.647Z",
+  "updatedAt": "2026-11-27T18:53:00.674Z",
   "profile": {
     "name": "syllogism48",
     "avatar": "https://avatars.steamstatic.com/a79690a4c52f56a7feb414c1fd847a1db855e610_full.jpg",
     "profileUrl": "https://steamcommunity.com/profiles/76561198685773960/",
-    "state": 1,
-    "stateText": "在线",
-    "inGame": "Battlefield™ 1",
-    "gameId": "1238840",
+    "state": 0,
+    "stateText": "离线",
+    "inGame": null,
+    "gameId": null,
     "country": null,
     "createdAt": "2026-06-17T06:59:49.000Z"
   },
   "stats": {
     "totalGames": 18,
-    "totalMinutes": 19519,
-    "totalHours": 325.3
+    "totalMinutes": 19738,
+    "totalHours": 329
   },
   "recent": [
     {
       "appid": 582010,
       "name": "Monster Hunter: World",
-      "minutes": 1482,
+      "minutes": 1415,
       "minutesTotal": 7489,
-      "human": "24.7 小时",
+      "human": "23.6 小时",
       "cover": "assets/steam/582010.jpg"
     },
     {
       "appid": 1446780,
       "name": "MONSTER HUNTER RISE",
-      "minutes": 375,
-      "minutesTotal": 438,
-      "human": "6.3 小时",
+      "minutes": 496,
+      "minutesTotal": 558,
+      "human": "8.3 小时",
       "cover": "assets/steam/1446780.jpg"
-    },
-    {
-      "appid": 105600,
-      "name": "Terraria",
-      "minutes": 189,
-      "minutesTotal": 1679,
-      "human": "3.1 小时",
-      "cover": "assets/steam/105600.jpg"
     },
     {
       "appid": 2868840,
@@ -52,10 +44,18 @@
     {
       "appid": 1238840,
       "name": "Battlefield™ 1",
-      "minutes": 127,
-      "minutesTotal": 4378,
-      "human": "2.1 小时",
+      "minutes": 186,
+      "minutesTotal": 4436,
+      "human": "3.1 小时",
       "cover": "assets/steam/1238840.jpg"
+    },
+    {
+      "appid": 105600,
+      "name": "Terraria",
+      "minutes": 80,
+      "minutesTotal": 1679,
+      "human": "1.3 小时",
+      "cover": "assets/steam/105600.jpg"
     },
     {
       "appid": 4379380,
@@ -64,6 +64,14 @@
       "minutesTotal": 59,
       "human": "59 分钟",
       "cover": null
+    },
+    {
+      "appid": 646570,
+      "name": "Slay the Spire",
+      "minutes": 40,
+      "minutesTotal": 444,
+      "human": "40 分钟",
+      "cover": "assets/steam/646570.jpg"
     }
   ],
   "topGames": [
@@ -78,9 +86,9 @@
     {
       "appid": 1238840,
       "name": "Battlefield™ 1",
-      "minutes": 4378,
-      "hours": 73,
-      "human": "73.0 小时",
+      "minutes": 4436,
+      "hours": 73.9,
+      "human": "73.9 小时",
       "cover": "assets/steam/1238840.jpg"
     },
     {
